@@ -1,0 +1,148 @@
+.form_main:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.form_main {
+  text-align: center;
+
+  /* display: flex; */
+  /* align-items: center; */
+  height: 100%;
+
+  position: fixed;
+  left: 0;
+  /* top: 0; */
+  background: #4747473d;
+  filter: grayscale(40%);
+  /* backdrop-filter: blur(1px); */
+  /* background: #ccc url(https://source.unsplash.com/random/1980x1080/?nature) center
+  no-repeat; */
+  /* opacity: 0.5; */
+  /* backdrop-filter: blur(5px); */
+  /* text-align: center; */
+  /* width: 500px; */
+  /* height: 90%; */
+
+  top: 50%;
+  /* left: 60%; */
+  right: 0;
+  /* z-index: 10; */
+  transform: translateY(-50%);
+  z-index: 100;
+
+  /* padding: 250px 100px; */
+}
+.form_container {
+  border-radius: 16px;
+  font-family: "Cousine", monospace;
+  /* display: flex;
+    flex-direction: column; */
+  width: 500px;
+  background: #fff;
+  /* top: -200px; */
+  /* display: block; */
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  top: -10%;
+  /* position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    z-index: 1;
+    transform: translateY(-50%); */
+  /* background: #ccc url(https://source.unsplash.com/random/500x400/?nature) center
+    no-repeat; */
+}
+
+textarea {
+  resize: none;
+}
+
+.form_container .form_input,
+.form_button,
+.form_textarea {
+  font-family: "Cousine", monospace;
+  /* font-family: 'Poiret One', cursive; */
+  /* font-weight: 800; */
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 20px;
+  /* margin: 5px 0; */
+  /* text-transform: capitalize; */
+}
+.form_textarea:first-letter {
+  /* text-transform: uppercase; */
+  color: blue;
+}
+.form_textarea {
+  /* text-transform: capitalize; */
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  font-style: italic;
+}
+
+.form_container .form_input {
+  text-transform: capitalize;
+  font-size: 40px;
+  font-weight: bold;
+  color: blue;
+  margin: 10px 0;
+  /* letter-spacing: 2px; */
+
+  border-bottom: 2px solid #8f8f8f;
+}
+.form_input:focus {
+  border-bottom: 2px solid #000;
+}
+
+.form_button {
+  /* background: #ccc url(https://source.unsplash.com/random/500x400/?nature) center
+  no-repeat;
+  filter: brightness(1.2); */
+  /* margin: 10px 0 0 0; */
+  background-color: #000;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  height: 50px;
+}
+.btn--dowm {
+  border-radius: 0 0 16px 16px;
+}
+
+.btn--up {
+  border-radius: 16px 16px 0 0;
+}
+@media (max-width: 950px) {
+  .form_main:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+  }
+  .form_main {
+    text-align: center;
+  
+    /* display: flex; */
+    /* align-items: center; */
+    height: 0;
+    width: 100%;
+  
+    position: fixed;
+    /* left: 0; */
+    /* top: 0; */
+    top: 0;
+    margin: aut0o;
+    left: 0;
+    /* right: 10%; */
+    /* z-index: 10; */
+    transform: none;
+    z-index: 1;
+  
+    /* padding: 250px 100px; */
+  }
+
+}

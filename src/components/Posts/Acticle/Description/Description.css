@@ -1,0 +1,20 @@
+.button_more {
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: crimson;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  padding: 0 0 0 5px;
+  width: auto;
+}
+.button_more:visited {
+  color: #551a8b;
+}
+.description__title {
+  /* text-align: center; */
+  /* width: 80%; */
+  padding-left: 5px;
+}
