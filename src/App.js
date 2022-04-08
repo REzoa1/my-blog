@@ -98,10 +98,8 @@ function App() {
 
   // if (isLoading) return <h1>Загрузка...</h1>
 
-  return (
-    <BrowserRouter>
-      <div> 
-        {/* {isLoading ? (
+  {
+    /* {isLoading ? (
         <h1>Загрузка...</h1>
       ) : (
         <table border="1">
@@ -117,38 +115,39 @@ function App() {
           })}
         </table>
       )}
-      {isVisible && <Test />} */}
+      {isVisible && <Test />} */
+  }
 
-        {/* {isLoggedIn ? ( */}
-        <>
-          {/* <main className="main__class"> */}
-          <Switch>
-            <Route exact path="/">
-              {isLoggedIn ? <Redirect to="/blog" /> : <Redirect to="/login" />}
-            </Route>
+  {
+    /* {isLoggedIn ? ( */
+  }
+  return (
+    <BrowserRouter>
+      <>
+        <Switch>
+          <Route exact path="/">
+            {isLoggedIn ? <Redirect to="/blog" /> : <Redirect to="/login" />}
+          </Route>
 
-            <Route
-              exact
-              path="/login"
-              render={(props) => {
-                if (isLoggedIn) return <Redirect to="/blog" />;
-                return <LoginPage {...props} />;
-              }}
-            />
+          <Route
+            exact
+            path="/login"
+            render={(props) => {
+              if (isLoggedIn) return <Redirect to="/blog" />;
+              return <LoginPage {...props} />;
+            }}
+          />
 
-           
+          <Route path="/">
+            {isLoggedIn ? <MainBlock /> : <Redirect to="/login" />}
+          </Route>
 
-            <Route path="/">
-              {isLoggedIn ? <MainBlock /> : <Redirect to="/login" />}
-            </Route>
-
-            {/* <Route exact path="*">
+          {/* <Route exact path="*">
               <NoMatch />
             </Route> */}
-          </Switch>
-          {/* </main> */}
-        </>
-      </div>
+        </Switch>
+        {/* </main> */}
+      </>
     </BrowserRouter>
   );
 }
