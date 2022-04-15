@@ -10,7 +10,7 @@ export const EditForm = ({
   setPostsList,
 
   selectedPost,
-  setLocalStorage,
+  // setLocalStorage,
   setSelectedPost,
 }) => {
   // console.log(isRightPost);
@@ -71,6 +71,7 @@ export const EditForm = ({
 
         return post;
       })
+      // console.log(updatedPostsList);
       setPostsList(updatedPostsList);
       // setLocalStorage(updatedPostsList);
     } else {

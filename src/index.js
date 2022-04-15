@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { useHistory } from "react-router-dom";
 // import './index.css';
 import App from "./App";
 import { AppProvider } from "./AppProvider";
 import reportWebVitals from "./reportWebVitals";
 
+
 ReactDOM.render(
   <React.StrictMode>
-    <AppProvider>
+    <AppProvider >
       <App />
     </AppProvider>
   </React.StrictMode>,

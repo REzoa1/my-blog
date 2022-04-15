@@ -32,7 +32,7 @@ export const SideBar = ({
           </div>
           <h1 className="app">User</h1>
         </div>
-        <div className="search">
+        {/* <div className="search">
           <img
             href="#"
             className="link__icons search--icon"
@@ -40,7 +40,7 @@ export const SideBar = ({
             alt="Search"
           />
           <input className="search__input" type="text" placeholder="Найти" />
-        </div>
+        </div> */}
         <nav className="nav">
           <NavLink
             exact

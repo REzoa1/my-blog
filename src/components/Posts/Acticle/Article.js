@@ -12,7 +12,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const Article = ({
   id,
-  title,
+  name,
   description,
   imgSrc = noImage,
   imgAlt = "No image",
@@ -53,7 +53,7 @@ export const Article = ({
     <>
       {/* <div className="article__main"> */}
         <Link className="article__main" to={`/blog/${id}`}>
-          <h3 className="article__title">{title}</h3>
+          <h3 className="article__title">{name}</h3>
           <Description description={description} />
         </Link>
       {/* </div> */}
@@ -83,7 +83,6 @@ export const Article = ({
         <button className="like__btn" onClick={like}>
           <HeartIcon fill={customFilling} className="like" />
         </button>
-
         {isEditFormOpen && selectedPost.id === id ? (
           <EditForm
             isEditFormOpen={isEditFormOpen}

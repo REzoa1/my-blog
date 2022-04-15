@@ -69,9 +69,7 @@ export const useCloseForm = (callback) => {
 // };
 export const useFetchPosts = (url) => {
   const [postsState, setPostsState] = useReducer(
-    (postsState, newPost) => {
-      return { ...postsState, ...newPost };
-    },
+    (postsState, newPost) => ({ ...postsState, ...newPost }),
     {
       posts: [],
       isLoading: false,
@@ -94,4 +92,32 @@ export const useFetchPosts = (url) => {
       });
   }, [url]);
   return { postsList, setPostsList, postsState };
+};
+
+
+export const useGetSinglePost = (url, postId) => {
+  const [postState, setPostState] = useReducer(
+    (postState, newPost) => ({ ...postState, ...newPost }),
+    {
+      post: {},
+      isLoading: false,
+      error: null,
+    }
+  );
+  const [postList, setPostList] = useState(postState.post);
+
+  useEffect(() => {
+    setPostState({ isLoading: true });
+    fetch(url + postId)
+      .then((res) => res.json())
+      .then((postFromServer) => {
+        setPostState({ post: postFromServer, isLoading: false });
+        setPostList(postFromServer);
+      })
+      .catch((error) => {
+        setPostState({ isLoading: false });
+        console.log(error);
+      });
+  }, [url, postId]);
+  return { postList, setPostList, postState, setPostState };
 };

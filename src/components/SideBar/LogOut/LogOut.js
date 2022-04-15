@@ -2,11 +2,12 @@
 import exit from "./../../../assets/img/svg/exit.svg";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { useLogin } from "../../../AppProvider";
+import { AppProvider, useLogin } from "../../../AppProvider";
 
 export const LogOut = () => {
-  const { logOut } = useLogin();
+  
   // const history = useHistory();
+  const { logOut } = useLogin();
   // const logOut = () => {
   //   localStorage.removeItem("isLoggedIn");
   //   setIsLoggedIn(false);
@@ -16,6 +17,7 @@ export const LogOut = () => {
     <a className="link" onClick={logOut}>
       <img className="link__icons" src={exit} alt="log out" />
       Выход
+      {/* <AppProvider history={history} /> */}
     </a>
   );
 };

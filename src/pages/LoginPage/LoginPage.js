@@ -19,8 +19,14 @@ export const LoginPage = ({ setIsLoggedIn }) => {
   const loginProps = useInput("", true);
   const passwordProps = useInput("", true);
 
-  const { logIn } = useLogin();
   // const history = useHistory();
+  
+  // console.log(history);
+  const { logIn } = useLogin();
+  // console.log(history);
+  // console.log(history);
+  // const history = useHistory();
+  // console.log(history);
   // const logIn = (e) => {
   //   e.preventDefault();
   //   const userData = {
@@ -58,6 +64,7 @@ export const LoginPage = ({ setIsLoggedIn }) => {
           {/* <FontAwesomeIcon icon={faRightToBracket} /> */}
         </button>
       </form>
+      {/* <AppProvider history={history} /> */}
       {/* </div> */}
     </div>
   );

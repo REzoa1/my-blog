@@ -113,7 +113,25 @@
     /* height: 50%; */
   }
 }
+/* .posts_search {
+  display: flex;
+  
+}
+.posts_search_icon {
+  width: 25px;
+}
 
+.posts_search_button {
+  background: #ccc;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  cursor: pointer;
+  left: -50px;
+  margin: auto 0;
+  border-radius: 20px;
+  
+} */
 @media (max-width: 1500px) and (min-width: 900px) {
   .posts {
     grid-template-columns: 1fr 1fr;

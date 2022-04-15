@@ -8,13 +8,22 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { Home } from "./pages/Home/Home";
 // import { Favourite } from "./pages/Favourite/Favourite";
 import { useState, useEffect } from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import { NoMatch } from "./pages/NoMatch/NoMatch";
-import { useDocumentTitle } from "./utils/hooks";
+import { useDocumentTitle, useFetchPosts } from "./utils/hooks";
 import { Form } from "./components/Posts/Form/Form";
-import { MainBlock } from "./components/MainBlock";
+import { MainBlock } from "./components/MainBlock/MainBlock";
 import { useLogin } from "./AppProvider";
 import { PostPage } from "./pages/PostPage/PostPage";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { PublicRoute } from "./components/PublicRoute/PublicRoute";
+import { POSTS_URL } from "./utils/constants";
 // import { Test } from "./components/Test/Test";
 
 function App() {
@@ -98,7 +107,7 @@ function App() {
 
   // if (isLoading) return <h1>Загрузка...</h1>
 
-  {
+  
     /* {isLoading ? (
         <h1>Загрузка...</h1>
       ) : (
@@ -116,31 +125,44 @@ function App() {
         </table>
       )}
       {isVisible && <Test />} */
-  }
+  
 
-  {
+  
     /* {isLoggedIn ? ( */
-  }
+  const postsData = useFetchPosts(POSTS_URL);
+  const blogPostRoutes = postsData.postsList.map((post) => {
+    return `/blog/${post.id}`
+  })
+  // console.log(blogPostRoutes);
+
   return (
     <BrowserRouter>
       <>
         <Switch>
-          <Route exact path="/">
+          {/* <Route exact path="/">
             {isLoggedIn ? <Redirect to="/blog" /> : <Redirect to="/login" />}
-          </Route>
+          </Route> */}
 
-          <Route
+          {/* <Route
             exact
             path="/login"
             render={(props) => {
               if (isLoggedIn) return <Redirect to="/blog" />;
               return <LoginPage {...props} />;
             }}
-          />
+          /> */}
 
-          <Route path="/">
+          <PublicRoute exact path="/login" isLoggedIn={isLoggedIn} blogPostRoutes={blogPostRoutes}>
+            <LoginPage />
+          </PublicRoute>
+
+          <PrivateRoute path="/" isLoggedIn={isLoggedIn} blogPostRoutes={blogPostRoutes}>
+            <MainBlock />
+          </PrivateRoute>
+
+          {/* <Route path="/">
             {isLoggedIn ? <MainBlock /> : <Redirect to="/login" />}
-          </Route>
+          </Route> */}
 
           {/* <Route exact path="*">
               <NoMatch />

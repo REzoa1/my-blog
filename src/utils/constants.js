@@ -1,6 +1,11 @@
 export const POSTS_URL = "https://6239efedbbe20c3f66cc84f6.mockapi.io/posts/";
 // export const ARTICLE_URL = "https://6239efedbbe20c3f66cc84f6.mockapi.io/posts/";
-
+export const APP_ROUTES = [
+  '/',
+  '/login',
+  '/blog',
+  '/favourite'
+]
 
 export const ARTICLES = [
   {

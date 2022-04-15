@@ -1,16 +1,16 @@
 import React from "react";
 // import { Favourite } from "../pages/Favourite/Favourite";
-import { Footer } from "./Footer/Footer";
-import { Header } from "./Header/Header";
-import { Posts } from "./Posts/Posts";
+import { Footer } from "../Footer/Footer";
+import { Header } from "../Header/Header";
+import { Posts } from "../Posts/Posts";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { SideBar } from "./SideBar/Sidebar";
-import { Form } from "./Posts/Form/Form";
-import { NoMatch } from "../pages/NoMatch/NoMatch";
-import { useFetchPosts } from "../utils/hooks";
-import { POSTS_URL } from "../utils/constants";
-import { PostPage } from "../pages/PostPage/PostPage";
+import { SideBar } from "../SideBar/Sidebar";
+import { Form } from "../Posts/Form/Form";
+import { NoMatch } from "../../pages/NoMatch/NoMatch";
+import { useFetchPosts } from "../../utils/hooks";
+import { POSTS_URL } from "../../utils/constants";
+import { PostPage } from "../../pages/PostPage/PostPage";
 
 export const MainBlock = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -54,6 +54,11 @@ export const MainBlock = ({ isLoggedIn, setIsLoggedIn }) => {
             isFavourite={true}
           />
         </Route>
+
+        <Route exact path="/">
+          <Redirect to="/blog" />
+        </Route>
+
 
         <Footer />
       </main>

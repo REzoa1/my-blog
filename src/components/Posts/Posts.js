@@ -8,11 +8,12 @@ import { POSTS_URL } from "../../utils/constants";
 import { useDocumentTitle, useFetchPosts } from "../../utils/hooks";
 import { deletePost } from "../../utils/helpers";
 import { Preloader } from "../Preloader/Preloader";
+import search from "./../../assets/img/svg/search.svg";
 // import { Favourite } from "../../pages/Favourite/Favourite";
 
 export const Posts = ({ title, isFavourite = false }) => {
   // const [postsList, setPostsList] = useState([]);
-  
+
   const { postsList, setPostsList, postsState } = useFetchPosts(POSTS_URL);
   // console.log(postsState.posts );
   // const postsList = postsState.posts;
@@ -25,8 +26,7 @@ export const Posts = ({ title, isFavourite = false }) => {
   // const [postsList, setPostsList] = useState(postsState.posts);
   // const postsList = postsState.posts;
 
-
-  const likedPosts =  postsList.filter((post) => post.liked);
+  const likedPosts = postsList.filter((post) => post.liked);
   // if (isFavourite) {
   //   postsList = postsList.filter((post) => post.liked)
   // }
@@ -185,16 +185,16 @@ export const Posts = ({ title, isFavourite = false }) => {
   const openEditForm = () => setIsEditFormOpen(true);
 
   // const isFavourite = false;
-
   const postsUI = (isFavourite ? likedPosts : postsList).map((post, pos) => {
     return (
       <Article
         key={post.id}
-        id={post.id}
-        title={post.name}
-        description={post.description}
-        imgSrc={post.imgSrc}
-        imgAlt={post.imgAlt}
+        // id={post.id}
+        // title={post.name}
+        // description={post.description}
+        // imgSrc={post.imgSrc}
+        // imgAlt={post.imgAlt}
+        {...post}
         like={() => like(post)}
         liked={post.liked}
         deletePost={() => myDelete(post.id)}
@@ -228,7 +228,24 @@ export const Posts = ({ title, isFavourite = false }) => {
   // console.log(postsList.length);
   // const firstTime = JSON.parse(localStorage.getItem("postsList"));
   // console.log(firstTime);
+  const [inputValue, setInputValue] = useState("");
 
+  // const handleInputValue = (e) => {
+  //   setInputValue(e.target.value)
+  // }
+  const filterValue = (e) => {
+    setInputValue(e.target.value);
+
+    if (e.target.value === "") return setPostsList(postsState.posts);
+    else
+      setPostsList(
+        postsList.filter(
+          (item) =>
+            item.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+            item.description.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      );
+  };
   return (
     <header>
       {/* {!firstTime && ( */}
@@ -261,6 +278,16 @@ export const Posts = ({ title, isFavourite = false }) => {
         )}
         <div className="container">
           <h1 className="posts__title">
+            <div className="posts__title">
+              <input
+                value={inputValue}
+                onChange={filterValue}
+                className="search__input"
+                type="text"
+                placeholder="Найти"
+              />
+            </div>
+
             {title}
             {!isFavourite && (
               <button href="#" className="posts__btn" onClick={openForm}>
