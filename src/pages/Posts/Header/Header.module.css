@@ -44,7 +44,7 @@
     height: 330px;
     /* width: 100%; */
     background: #01b0ef
-    url(../../assets/img/bg.jpg) center no-repeat;
+    url(../../../assets/img/bg.jpg) center no-repeat;
     background-size: cover;
 
     border-radius: 8px;

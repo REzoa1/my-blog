@@ -5,6 +5,8 @@ import { POSTS_URL } from "../../../utils/constants";
 import { useCloseForm } from "../../../utils/hooks";
 import { createNewPost } from "../../../store/slices/posts";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { CloseCircleFilled, CloseOutlined, FileAddFilled, FileAddOutlined } from "@ant-design/icons";
 // import { Posts } from "./../Posts"
 
 export const Form = ({
@@ -50,6 +52,7 @@ export const Form = ({
   // const [newPost, setNewPost] = useState({})
   // console.log(newPost)
   const dispatch = useDispatch();
+  const history = useHistory();
   const handleCreatePost = async (e) => {
     e.preventDefault();
     // const idValue = postsList.length + 1;
@@ -60,7 +63,7 @@ export const Form = ({
       id: postsList.length + 1,
       liked: false,
     };
-
+    history.push('/blog')
     dispatch(createNewPost(newPost)).finally(() => closeForm())
 
     // setNewPost(UserData);
@@ -93,7 +96,9 @@ export const Form = ({
     <div className="form_main">
       <form className="form_container" onSubmit={handleCreatePost}>
         <button className="form_button btn--up" onClick={closeForm}>
-          Закрыть
+        Закрыть &nbsp;
+        <CloseCircleFilled />
+        
         </button>
 
         <input
@@ -115,7 +120,8 @@ export const Form = ({
         ></textarea>
         <MySelect />
         <button className="form_button btn--dowm" type="submit">
-          Добавить пост
+        
+          Добавить пост &nbsp;<FileAddFilled />
         </button>
       </form>
     </div>

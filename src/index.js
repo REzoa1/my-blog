@@ -1,22 +1,30 @@
+
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { useHistory } from "react-router-dom";
 // import './index.css';
-import App from "./App";
-import { AppProvider } from "./AppProvider";
-import reportWebVitals from "./reportWebVitals";
 
+import ruRU from "antd/lib/locale/ru_RU";
+import { ConfigProvider } from "antd";
+import "antd/dist/antd.css";
+import App from "./App";
+
+import { AppProvider } from "./AppProvider";
 import { Provider } from "react-redux";
-import { store } from "./store";
 import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
+
+import reportWebVitals from "./reportWebVitals";
+import { store } from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <AppProvider > */}
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <ConfigProvider locale={ruRU}>
+          <App />
+        </ConfigProvider>
       </Provider>
     </BrowserRouter>
     {/* </AppProvider> */}

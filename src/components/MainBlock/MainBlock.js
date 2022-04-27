@@ -1,12 +1,12 @@
 import React from "react";
 // import { Favourite } from "../pages/Favourite/Favourite";
-import { Footer } from "../Footer/Footer";
-import { Header } from "../Header/Header";
-import { Posts } from "../Posts/Posts";
+import { Footer } from "./../../pages/Posts/Footer/Footer"
+import { Header } from "./../../pages/Posts/Header/Header";
+import { Posts } from "./../../pages/Posts/Posts";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { SideBar } from "../SideBar/Sidebar";
-import { Form } from "../Posts/Form/Form";
+import { SideBar } from "./../../pages/Posts/SideBar/Sidebar";
+import { Form } from "./../../pages/Posts/Form/Form";
 import { NoMatch } from "../../pages/NoMatch/NoMatch";
 import { useFetchPosts } from "../../utils/hooks";
 import { POSTS_URL } from "../../utils/constants";

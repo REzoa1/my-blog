@@ -1,4 +1,10 @@
 import "./PostPage.css";
+import { Modal } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 import noImage from "./../../assets/img/placeholder.png";
 import React, { useEffect, useState } from "react";
 import {
@@ -6,7 +12,6 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { Description } from "../../components/Posts/Acticle/Description/Description";
 import { POSTS_URL } from "../../utils/constants";
 import { ReactComponent as HeartIcon } from "./../../assets/img/svg/heart-black.svg";
 import { useGetSinglePost } from "../../utils/hooks";
@@ -14,6 +19,7 @@ import { useGetSinglePost } from "../../utils/hooks";
 import { useDispatch } from "react-redux";
 import { deletePost, editPost, setPostsList } from "../../store/slices/posts";
 import { EditForm } from "../../components/EditForm/EditForm";
+import { deleteConfirmation } from "../../utils/helpers";
 
 export const PostPage = () => {
   const { postId } = useParams();
@@ -54,9 +60,29 @@ export const PostPage = () => {
     });
   };
 
+  const postPage = true;
   const handleDeletePost = () => {
-    dispatch(deletePost(postId))
-    .then(() => history.goBack())
+    // dispatch(deletePost(postId))
+    deleteConfirmation(postId, dispatch, postPage, history);
+
+    // const isDelete = window.confirm("Удалить пост?");
+    // if (isDelete) {
+    // dispatch(deletePost(postId))
+    // .then(() => history.goBack())
+    // }
+
+    // const { confirm } = Modal;
+    // confirm({
+    //   title: "Удалить пост?",
+    //   icon: <ExclamationCircleOutlined />,
+    //   okText: "Да",
+    //   okType: "danger",
+    //   cancelText: "Нет",
+    //   onOk() {
+    //     dispatch(deletePost(postId)).then(() => history.goBack());
+    //   },
+    // });
+    // .then(() => history.goBack())
     // const isDelete = window.confirm("Удалить пост?");
     // if (isDelete) {
     //   fetch(POSTS_URL + postId, { method: "DELETE" })
@@ -72,11 +98,11 @@ export const PostPage = () => {
       <h1 className="selectedpost_title">{name}</h1>
       <p className="selectedpost__title">{description}</p>
       <div className="article_btns">
-        <button className="btn" onClick={handleDeletePost}>
-          Удалить &nbsp;
-        </button>
         <button className="btn" onClick={handleEditFormShow}>
-          Редактировать &nbsp;
+          <EditOutlined />
+        </button>
+        <button className="btn" onClick={handleDeletePost}>
+          <DeleteOutlined />
         </button>
       </div>
     </>
@@ -86,12 +112,12 @@ export const PostPage = () => {
     <div className="container">
       <article className="selectedpost_page">
         <div className="selectedpost_container">
-          <Link to={`/blog`}>Назад</Link>
           <img
             src={imgSrc || noImage}
             className="selectedpost__img"
             alt={imgAlt}
           />
+
           <div className="like__btn" onClick={handleLikePost}>
             <HeartIcon fill={customFilling} className="like" />
           </div>
@@ -110,6 +136,7 @@ export const PostPage = () => {
             edit
           )}
         </div>
+        <Link to={`/blog`}>Назад</Link>
       </article>
     </div>
   );

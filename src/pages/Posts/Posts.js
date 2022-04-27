@@ -6,7 +6,7 @@ import { Form } from "./Form/Form";
 import { POSTS_URL } from "../../utils/constants";
 import { useDocumentTitle, useFetchPosts } from "../../utils/hooks";
 // import { deletePost } from "../../utils/helpers";
-import { Preloader } from "../Preloader/Preloader";
+import { Preloader } from "./Preloader/Preloader";
 import search from "./../../assets/img/svg/search.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,6 +16,7 @@ import {
   selectPostsData,
   setPostsList,
 } from "../../store/slices/posts";
+import { deleteConfirmation } from "../../utils/helpers";
 // import { Favourite } from "../../pages/Favourite/Favourite";
 
 export const Posts = ({ title, isFavourite = false }) => {
@@ -139,8 +140,11 @@ export const Posts = ({ title, isFavourite = false }) => {
   // };
   const handleLikePost = (index) => {
     const updatedPosts = [...postsList];
-    updatedPosts[index] = {...updatedPosts[index], liked: !updatedPosts[index].liked};
-    
+    updatedPosts[index] = {
+      ...updatedPosts[index],
+      liked: !updatedPosts[index].liked,
+    };
+
     dispatch(editPost(updatedPosts[index]));
   };
 
@@ -169,7 +173,19 @@ export const Posts = ({ title, isFavourite = false }) => {
   // };
 
   const handleDeletePost = (postId) => {
-    dispatch(deletePost(postId));
+    deleteConfirmation(postId, dispatch);
+    // dispatch(deletePost(postId));
+    // confirm({
+    //   title: 'Удалить пост?',
+    //   icon: <ExclamationCircleOutlined />,
+    //   okText: 'Да',
+    //   okType: 'danger',
+    //   cancelText: 'Нет',
+    //   onOk() {
+    //     dispatch(deletePost(postId));
+    //   },
+
+    // });
   };
   // const deleteAllPost = () => {
   //   const isDelete = window.confirm("Удалить все посты?");
@@ -307,24 +323,22 @@ export const Posts = ({ title, isFavourite = false }) => {
           />
         )}
         <div className="container">
-          <h1 className="posts__title">
-            <div className="posts__title">
-              <input
-                value={inputValue}
-                onChange={filterValue}
-                className="search__input"
-                type="text"
-                placeholder="Найти"
-              />
-            </div>
-
+          <div className="posts__title">
             {title}
-            {!isFavourite && (
+            <div className="posts__search"><input
+              value={inputValue}
+              onChange={filterValue}
+              className="search__input"
+              type="text"
+              placeholder="Найти"
+            /></div>
+
+            {/* {!isFavourite && (
               <button href="#" className="posts__btn" onClick={openForm}>
                 Добавить пост
               </button>
-            )}
-          </h1>
+            )} */}
+          </div>
           {/* <div className="posts"> */}
           <div className="posts">{postsUI}</div>
 

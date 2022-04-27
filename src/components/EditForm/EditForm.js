@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { editPost } from "../../store/slices/posts";
 import { useCloseForm } from "../../utils/hooks";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 export const EditForm = ({
   setIsEditFormOpen,
@@ -55,10 +56,10 @@ export const EditForm = ({
         ></textarea>
         <div className="article_btns">
           <button className="btn" onClick={closeEditForm}>
-            Закрыть
+            <CloseOutlined />
           </button>
           <button className="btn" type="submit">
-            Сохранить изменения
+            <CheckOutlined />
           </button>
         </div>
       </form>

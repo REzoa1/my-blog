@@ -7,11 +7,16 @@ export const Description = ({ description }) => {
   // const hideDesc = () => setisFullDesc(false);
   return (
     <div className="description__title">
-      {description.length <= 100 && description}
+      {description.length <= 100 && (
+        <>
+          {description}
+          <span className="button_more">Подробнее</span>
+        </>
+      )}
       {description.length > 100 && (
         <>
           {`${description.slice(0, 100)}...`}
-          <div className="button_more">Подробнее</div>
+          <span className="button_more">Подробнее</span>
         </>
       )}
     </div>

@@ -1,8 +1,8 @@
 // import "./LogOut.css";
-import exit from "./../../../assets/img/svg/exit.svg";
+import exit from "./../../../../assets/img/svg/exit.svg";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { logOut } from "../../../store/slices/auth";
+import { logOut } from "../../../../store/slices/auth";
 import { useDispatch } from "react-redux";
 // import { AppProvider, useLogin } from "../../../AppProvider";
 

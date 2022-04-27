@@ -15,7 +15,7 @@
   box-shadow: 0 15px 45px 15px #00000054;
   position: absolute;
   width: 500px;
-  height: 500px;
+  height: 550px;
   top: 50%;
   right: 15%;
   transform: translateY(-50%);
@@ -67,7 +67,7 @@
 }
 
 .login_text {
-  margin-bottom: 55px;
+  /* margin-bottom: 55px; */
   color: #333;
   font-size: 48px;
   font-weight: bold;

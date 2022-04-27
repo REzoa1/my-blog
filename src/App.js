@@ -1,11 +1,7 @@
 // import logo from './logo.svg';
+
 import "./App.css";
-import { Header } from "./components/Header/Header";
-import { Posts } from "./components/Posts/Posts";
-import { Footer } from "./components/Footer/Footer";
-import { SideBar } from "./components/SideBar/Sidebar";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { Home } from "./pages/Home/Home";
 // import { Favourite } from "./pages/Favourite/Favourite";
 import { useState, useEffect } from "react";
 import {
@@ -17,7 +13,6 @@ import {
 } from "react-router-dom";
 import { NoMatch } from "./pages/NoMatch/NoMatch";
 import { useDocumentTitle, useFetchPosts } from "./utils/hooks";
-import { Form } from "./components/Posts/Form/Form";
 import { MainBlock } from "./components/MainBlock/MainBlock";
 // import { useLogin } from "./AppProvider";
 import { PostPage } from "./pages/PostPage/PostPage";

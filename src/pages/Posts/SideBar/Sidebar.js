@@ -1,16 +1,16 @@
 import { links } from "./Link/link";
 import "./SideBar.css";
-import search from "./../../assets/img/svg/search.svg";
-import blog from "./../../assets/img/svg/blog.svg";
-import star from "./../../assets/img/svg/star.svg";
-import settings from "./../../assets/img/svg/settings.svg";
-import add from "./../../assets/img/svg/add.svg";
+// import search from "./../../../assets/img/svg/search.svg";
+import blog from "./../../../assets/img/svg/blog.svg";
+import star from "./../../../assets/img/svg/star.svg";
+import settings from "./../../../assets/img/svg/settings.svg";
+import add from "./../../../assets/img/svg/add.svg";
 
-import avatar from "./../../assets/img/avatar.png";
+import avatar from "./../../../assets/img/avatar.png";
 import { LogOut } from "./LogOut/LogOut";
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
-import { Form } from "../Posts/Form/Form";
+// import { Form } from "../Posts/Form/Form";
 
 export const SideBar = ({
   setIsFormOpen,
