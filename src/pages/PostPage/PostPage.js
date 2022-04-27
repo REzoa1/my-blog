@@ -10,28 +10,25 @@ import { Description } from "../../components/Posts/Acticle/Description/Descript
 import { POSTS_URL } from "../../utils/constants";
 import { ReactComponent as HeartIcon } from "./../../assets/img/svg/heart-black.svg";
 import { useGetSinglePost } from "../../utils/hooks";
-import { EditForm } from "./EditForm/EditForm";
+// import { EditForm } from "./EditForm/EditForm";
+import { useDispatch } from "react-redux";
+import { deletePost, editPost, setPostsList } from "../../store/slices/posts";
+import { EditForm } from "../../components/EditForm/EditForm";
 
 export const PostPage = () => {
-  
-
   const { postId } = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const { postList, setPostList, postState } = useGetSinglePost(
     POSTS_URL,
     postId
   );
-
-  
-
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const { name, description, imgSrc, imgAlt, liked } = postList;
 
-  const [isEditFormOpen, setIsEditFormOpen] = useState(false);  
   const handleEditFormShow = () => setIsEditFormOpen(true);
 
-  const history = useHistory();
   // console.log(postState.isLoading);
-
-  
 
   // const [currentPost, setCurrentPost] = useState({});
   // useEffect(() => {
@@ -50,39 +47,22 @@ export const PostPage = () => {
     );
   if (postState.error) return <h1>{postState.error.message}</h1>;
 
-  const like = () => {
+  const handleLikePost = () => {
     const updatedPost = { ...postList, liked: !postList.liked };
-
-    fetch(POSTS_URL + postId, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedPost),
-    })
-      .then((res) => res.json())
-      .then((updatedPostFromServer) => {
-        // updatedPost[pos] = updatedPostFromServer;
-        setPostList(updatedPostFromServer);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(editPost(updatedPost)).finally(() => {
+      setPostList(updatedPost);
+    });
   };
 
-  const deletePost = () => {
-    const isDelete = window.confirm("Удалить пост?");
-    if (isDelete) {
-      fetch(POSTS_URL + postId, { method: "DELETE" })
-        .then(() => history.goBack())
-        .catch((error) => console.log(error));
-      // if (response.ok) {
-      //   const updatedPostsList = postList.filter((post) => post.id !== postId);
-      //   setPostList(updatedPostsList);
-      // } else {
-      //   console.log(new Error(`${response.status} - ${response.statusText}`));
-      // }
-    }
+  const handleDeletePost = () => {
+    dispatch(deletePost(postId))
+    .then(() => history.goBack())
+    // const isDelete = window.confirm("Удалить пост?");
+    // if (isDelete) {
+    //   fetch(POSTS_URL + postId, { method: "DELETE" })
+    //     .then(() => history.goBack())
+    //     .catch((error) => console.log(error));
+    // }
   };
 
   const customFilling = liked ? "crimson" : "black";
@@ -92,7 +72,7 @@ export const PostPage = () => {
       <h1 className="selectedpost_title">{name}</h1>
       <p className="selectedpost__title">{description}</p>
       <div className="article_btns">
-        <button className="btn" onClick={deletePost}>
+        <button className="btn" onClick={handleDeletePost}>
           Удалить &nbsp;
         </button>
         <button className="btn" onClick={handleEditFormShow}>
@@ -112,7 +92,7 @@ export const PostPage = () => {
             className="selectedpost__img"
             alt={imgAlt}
           />
-          <div className="like__btn" onClick={like}>
+          <div className="like__btn" onClick={handleLikePost}>
             <HeartIcon fill={customFilling} className="like" />
           </div>
         </div>
@@ -121,8 +101,10 @@ export const PostPage = () => {
           {isEditFormOpen ? (
             <EditForm
               setIsEditFormOpen={setIsEditFormOpen}
-              selectedPost={postList}
-              setSelectedPost={setPostList}
+              // selectedPost={postList}
+              postList={postList}
+              setPostList={setPostList}
+              // setSelectedPost={setPostList}
             />
           ) : (
             edit

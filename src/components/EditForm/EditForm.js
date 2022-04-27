@@ -1,16 +1,16 @@
-// import "./EditForm.css";
-// import "./../Acticle/Article.css";
-import { useState, useContext, useEffect, useRef, useCallback } from "react";
-import { POSTS_URL } from "../../../utils/constants";
-import { useCloseForm } from "../../../utils/hooks";
+import "./EditForm.css";
+import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { editPost } from "../../store/slices/posts";
+import { useCloseForm } from "../../utils/hooks";
 
 export const EditForm = ({
   setIsEditFormOpen,
-  //   postsList,
-  //   setPostsList,
-  selectedPost,
-  setSelectedPost,
+  postList,
+  setPostList,
+  // setSelectedPost,
 }) => {
+  const [selectedPost, setSelectedPost] = useState(postList);
   const closeEditForm = useCallback(
     () => setIsEditFormOpen(false),
     [setIsEditFormOpen]
@@ -24,31 +24,14 @@ export const EditForm = ({
     setSelectedPost({ ...selectedPost, description: e.target.value });
   };
 
+  const dispatch = useDispatch();
   const editAndSavePost = async (e) => {
     e.preventDefault();
 
-    fetch(POSTS_URL + selectedPost.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(selectedPost),
-    })
-      .then((res) => res.json())
-      .then((updatedPostFromServer) => {
-        setSelectedPost(updatedPostFromServer);
-        setIsEditFormOpen(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    // if (response.ok) {
-    //   const updatedPostFromServer = await response.json();
-    //   setSelectedPost(updatedPostFromServer);
-    //   setIsEditFormOpen(false);
-    // } else {
-    //   console.log(new Error(`${response.status} - ${response.statusText}`));
-    // }
+    dispatch(editPost(selectedPost)).finally(() => {
+      setPostList(selectedPost);
+      closeEditForm();
+    });
   };
 
   return (

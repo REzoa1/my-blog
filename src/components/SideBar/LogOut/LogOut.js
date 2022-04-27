@@ -2,19 +2,25 @@
 import exit from "./../../../assets/img/svg/exit.svg";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { AppProvider, useLogin } from "../../../AppProvider";
+import { logOut } from "../../../store/slices/auth";
+import { useDispatch } from "react-redux";
+// import { AppProvider, useLogin } from "../../../AppProvider";
 
 export const LogOut = () => {
   
-  // const history = useHistory();
-  const { logOut } = useLogin();
-  // const logOut = () => {
-  //   localStorage.removeItem("isLoggedIn");
-  //   setIsLoggedIn(false);
-  //   history.push("/login");
-  // };
+  
+  
+  const history = useHistory();
+  const dispatch = useDispatch();
+  // const { logOut } = useLogin();
+  const handleExit = () => {
+    // localStorage.removeItem("isLoggedIn");
+    // setIsLoggedIn(false);
+    dispatch(logOut());
+    history.push("/login");
+  };
   return (
-    <a className="link" onClick={logOut}>
+    <a className="link" onClick={handleExit}>
       <img className="link__icons" src={exit} alt="log out" />
       Выход
       {/* <AppProvider history={history} /> */}

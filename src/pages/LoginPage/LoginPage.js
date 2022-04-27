@@ -7,10 +7,11 @@ import { faEye, faEyeSlash, faRightToBracket, faLock, faEnvelope, faUser } from 
 
 import { FormControl } from "./FormControl/FormControl";
 import { useHistory} from "react-router-dom";
-import { useLogin } from "../../AppProvider";
+// import { useLogin } from "../../AppProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn } from "../../store/slices/auth";
 
-export const LoginPage = ({ setIsLoggedIn }) => {
-
+export const LoginPage = ({  }) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePassword = (e) => {
     e.preventDefault();
@@ -19,29 +20,53 @@ export const LoginPage = ({ setIsLoggedIn }) => {
   const loginProps = useInput("", true);
   const passwordProps = useInput("", true);
 
+  // const { logIn } = useLogin();
+
+  const dispatch = useDispatch();
+  // const logIn = useSelector((state) => state.counter.value);
+
+  // console.log(logIn);
+
   // const history = useHistory();
   
   // console.log(history);
-  const { logIn } = useLogin();
-  // console.log(history);
-  // console.log(history);
+  
+
   // const history = useHistory();
-  // console.log(history);
-  // const logIn = (e) => {
+  // const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  // const dispatch = useDispatch();
+  // const logInn = (e) => {
   //   e.preventDefault();
-  //   const userData = {
-  //     login: loginProps.formControlProps.value,
-  //     password: passwordProps.formControlProps.value,
-  //   };
-  //   console.log(userData);
-  //   setIsLoggedIn(true);
-  //   history.push('/')
-  //   localStorage.setItem("isLoggedIn", true);
-  // };
+  //   dispatch(logIn(e, history))
+  // }
+    // console.log(logIn(history));
+    // console.log(history);
+   
+
+
+  // console.log(history);
+  // console.log(history);
+  const history = useHistory();
+  // console.log(history);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      login: loginProps.formControlProps.value,
+      password: passwordProps.formControlProps.value,
+    };
+    console.log(userData);
+    // setIsLoggedIn(true);
+    dispatch(logIn());
+    history.push('/')
+    // localStorage.setItem("isLoggedIn", true);
+  };
   return (
     <div className="login_main">
+      {/* <button onClick={() => dispatch(logIn())}>Btn</button>
+      <div>{`${isLoggedIn}`}</div> */}
       {/* <div className="login_container"> */}
-      <form onSubmit={logIn} className="login_form">
+      <form onSubmit={handleSubmit} className="login_form"> 
+      {/* onSubmit={logInn}  */}
         <h1 className="login_content login_text">Вход</h1>
         <FormControl
           className="input_form login_input"

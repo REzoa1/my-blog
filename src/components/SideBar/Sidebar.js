@@ -13,11 +13,7 @@ import { useState } from "react";
 import { Form } from "../Posts/Form/Form";
 
 export const SideBar = ({
-  postsList,
   setIsFormOpen,
-  setIsLoggedIn,
-  setPostsList,
-  isFormOpen,
 }) => {
   // const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
@@ -74,14 +70,6 @@ export const SideBar = ({
             {links.link3.name}
           </NavLink>
           <a href="#" className="link" onClick={openForm}>
-            {isFormOpen && (
-              <Form
-                setIsFormOpen={setIsFormOpen}
-                postsList={postsList}
-                setPostsList={setPostsList}
-                // setLocalStorage={setLocalStorage}
-              />
-            )}
             <img className="link__icons" src={add} alt={links.link3.name} />
             Добавить пост
           </a>

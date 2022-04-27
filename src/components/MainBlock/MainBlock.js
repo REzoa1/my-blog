@@ -12,7 +12,7 @@ import { useFetchPosts } from "../../utils/hooks";
 import { POSTS_URL } from "../../utils/constants";
 import { PostPage } from "../../pages/PostPage/PostPage";
 
-export const MainBlock = ({ isLoggedIn, setIsLoggedIn }) => {
+export const MainBlock = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { postsList, setPostsList } = useFetchPosts(POSTS_URL);
 
@@ -22,10 +22,7 @@ export const MainBlock = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
       <SideBar
-        postsList={postsList}
-        isFormOpen={isFormOpen}
         setIsFormOpen={setIsFormOpen}
-        setPostsList={setPostsList}
       />
       <main className="main__class">
         {isFormOpen && (
@@ -39,8 +36,8 @@ export const MainBlock = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route exact path="/blog">
           <Posts
             title="Посты"
-            postsList={postsList}
-            setPostsList={setPostsList}
+            // postsList={postsList}
+            // setPostsList={setPostsList}
           />
         </Route>
         <Route exact path="/blog/:postId">
@@ -49,8 +46,8 @@ export const MainBlock = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route exact path="/favourite">
           <Posts
             title="Избранное"
-            postsList={postsList}
-            setPostsList={setPostsList}
+            // postsList={postsList}
+            // setPostsList={setPostsList}
             isFavourite={true}
           />
         </Route>

@@ -6,8 +6,9 @@ import { ReactComponent as HeartIcon } from "./../../../assets/img/svg/heart-bla
 import editIcon from "./../../../assets/img/svg/edit.svg";
 import deleteIcon from "./../../../assets/img/svg/delete.svg";
 // import { useState } from "react";
-import { EditForm } from "./../EditForm/EditForm";
+// import { EditForm } from "./../EditForm/EditForm";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { EditForm } from "../../EditForm/EditForm";
 // import { Favourite } from "../../../pages/Favourite/Favourite";
 
 export const Article = ({
@@ -85,13 +86,13 @@ export const Article = ({
         </button>
         {isEditFormOpen && selectedPost.id === id ? (
           <EditForm
-            isEditFormOpen={isEditFormOpen}
+            // isEditFormOpen={isEditFormOpen}
             setIsEditFormOpen={setIsEditFormOpen}
-            postsList={postsList}
-            setPostsList={setPostsList}
-            selectedPost={selectedPost}
-            setLocalStorage={setLocalStorage}
-            setSelectedPost={setSelectedPost}
+            postList={selectedPost}
+            setPostList={setSelectedPost}
+            // selectedPost={selectedPost}
+            // setSelectedPost={setSelectedPost}
+            // setLocalStorage={setLocalStorage}
             // isRightPost={isRightPost}
           />
         ) : (

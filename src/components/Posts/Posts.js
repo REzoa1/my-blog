@@ -2,19 +2,32 @@ import { Article } from "./Acticle/Article";
 import "./Posts.css";
 import { useState, useEffect } from "react";
 import { Form } from "./Form/Form";
-import { EditForm } from "./EditForm/EditForm";
 // import { Test } from "../Test/Test";
 import { POSTS_URL } from "../../utils/constants";
 import { useDocumentTitle, useFetchPosts } from "../../utils/hooks";
-import { deletePost } from "../../utils/helpers";
+// import { deletePost } from "../../utils/helpers";
 import { Preloader } from "../Preloader/Preloader";
 import search from "./../../assets/img/svg/search.svg";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deletePost,
+  editPost,
+  fetchPosts,
+  selectPostsData,
+  setPostsList,
+} from "../../store/slices/posts";
 // import { Favourite } from "../../pages/Favourite/Favourite";
 
 export const Posts = ({ title, isFavourite = false }) => {
+  const { postsList, isLoading, error } = useSelector(selectPostsData);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
   // const [postsList, setPostsList] = useState([]);
 
-  const { postsList, setPostsList, postsState } = useFetchPosts(POSTS_URL);
+  // const { postsList, setPostsList, postsState } = useFetchPosts(POSTS_URL);
+
   // console.log(postsState.posts );
   // const postsList = postsState.posts;
   // const setPostsList = () => {
@@ -89,39 +102,46 @@ export const Posts = ({ title, isFavourite = false }) => {
   // };
   // const [isLiked, setIsLiked] = useState([]);
 
-  const like = async (post) => {
-    const updatedPosts = { ...post, liked: !post.liked };
-    // console.log(updatedPosts);
-    // console.log(post.id);
-    const response = await fetch(POSTS_URL + post.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedPosts),
-    });
-    if (response.ok) {
-      const updatedPostFromServer = await response.json();
+  // const like = async (post) => {
+  //   const updatedPosts = { ...post, liked: !post.liked };
+  //   // console.log(updatedPosts);
+  //   // console.log(post.id);
+  //   const response = await fetch(POSTS_URL + post.id, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(updatedPosts),
+  //   });
+  //   if (response.ok) {
+  //     const updatedPostFromServer = await response.json();
 
-      // const favoriteList = postsList.filter((post) => {
-      //   if (post.liked === true) {
-      //     return updatedPostFromServer;
-      //   }
-      // });
-      // console.log(favoriteList);
+  //     // const favoriteList = postsList.filter((post) => {
+  //     //   if (post.liked === true) {
+  //     //     return updatedPostFromServer;
+  //     //   }
+  //     // });
+  //     // console.log(favoriteList);
 
-      const updatedPostsList = postsList.map((post) => {
-        if (post.id === updatedPostFromServer.id) {
-          return updatedPostFromServer;
-        }
-        return post;
-      });
-      setPostsList(updatedPostsList);
+  //     const updatedPostsList = postsList.map((post) => {
+  //       if (post.id === updatedPostFromServer.id) {
+  //         return updatedPostFromServer;
+  //       }
+  //       return post;
+  //     });
+  //     dispatch(setPostsList(updatedPostsList));
+  //     // setPostsList(updatedPostsList);
 
-      // setLocalStorage(updatedPostsList);
-    } else {
-      console.log(new Error(`${response.status} - ${response.statusText}`));
-    }
+  //     // setLocalStorage(updatedPostsList);
+  //   } else {
+  //     console.log(new Error(`${response.status} - ${response.statusText}`));
+  //   }
+  // };
+  const handleLikePost = (index) => {
+    const updatedPosts = [...postsList];
+    updatedPosts[index] = {...updatedPosts[index], liked: !updatedPosts[index].liked};
+    
+    dispatch(editPost(updatedPosts[index]));
   };
 
   // const deletePost = async (postId) => {
@@ -144,10 +164,13 @@ export const Posts = ({ title, isFavourite = false }) => {
   //     // setPostsList(updatedPosts);
   //   }
   // };
-  const myDelete = (postId) => {
-    deletePost(postId, postsList, setPostsList);
-  };
+  // const myDelete = (postId) => {
+  //   deletePost(postId, postsList, setPostsList);
+  // };
 
+  const handleDeletePost = (postId) => {
+    dispatch(deletePost(postId));
+  };
   // const deleteAllPost = () => {
   //   const isDelete = window.confirm("Удалить все посты?");
   //   if (isDelete) {
@@ -185,6 +208,7 @@ export const Posts = ({ title, isFavourite = false }) => {
   const openEditForm = () => setIsEditFormOpen(true);
 
   // const isFavourite = false;
+
   const postsUI = (isFavourite ? likedPosts : postsList).map((post, pos) => {
     return (
       <Article
@@ -195,9 +219,9 @@ export const Posts = ({ title, isFavourite = false }) => {
         // imgSrc={post.imgSrc}
         // imgAlt={post.imgAlt}
         {...post}
-        like={() => like(post)}
-        liked={post.liked}
-        deletePost={() => myDelete(post.id)}
+        like={() => handleLikePost(pos)}
+        // liked={post.liked}
+        deletePost={() => handleDeletePost(post.id)}
         openEditForm={() => openEditForm(post.id)}
         editFormShow={() => editFormShow(post)}
         isEditFormOpen={isEditFormOpen}
@@ -233,19 +257,25 @@ export const Posts = ({ title, isFavourite = false }) => {
   // const handleInputValue = (e) => {
   //   setInputValue(e.target.value)
   // }
+  // const posts = []
   const filterValue = (e) => {
     setInputValue(e.target.value);
 
-    if (e.target.value === "") return setPostsList(postsState.posts);
+    // if (e.target.value === "") return setPostsList(postsState.posts);
+    if (e.target.value === "") return setPostsList(postsList);
     else
-      setPostsList(
-        postsList.filter(
-          (item) =>
-            item.name.toLowerCase().includes(inputValue.toLowerCase()) ||
-            item.description.toLowerCase().includes(inputValue.toLowerCase())
+      dispatch(
+        setPostsList(
+          // setPostsList(
+          postsList.filter(
+            (item) =>
+              item.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+              item.description.toLowerCase().includes(inputValue.toLowerCase())
+          )
         )
       );
   };
+
   return (
     <header>
       {/* {!firstTime && ( */}
@@ -267,12 +297,12 @@ export const Posts = ({ title, isFavourite = false }) => {
           setSelectedPost={setSelectedPost}
         />
       )} */}
-      <Preloader isLoading={postsState.isLoading}>
+      <Preloader isLoading={isLoading}>
         {isFormOpen && (
           <Form
             setIsFormOpen={setIsFormOpen}
             postsList={postsList}
-            setPostsList={setPostsList}
+            // setPostsList={setPostsList}
             // setLocalStorage={setLocalStorage}
           />
         )}

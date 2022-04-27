@@ -3,12 +3,14 @@ import { useState, useEffect, useCallback } from "react";
 import { MySelect } from "./MySelect/MySelect";
 import { POSTS_URL } from "../../../utils/constants";
 import { useCloseForm } from "../../../utils/hooks";
+import { createNewPost } from "../../../store/slices/posts";
+import { useDispatch } from "react-redux";
 // import { Posts } from "./../Posts"
 
 export const Form = ({
   setIsFormOpen,
   postsList,
-  setPostsList,
+  // setPostsList,
   setLocalStorage,
 }) => {
 
@@ -47,7 +49,8 @@ export const Form = ({
 
   // const [newPost, setNewPost] = useState({})
   // console.log(newPost)
-  const handleSubmit = async (e) => {
+  const dispatch = useDispatch();
+  const handleCreatePost = async (e) => {
     e.preventDefault();
     // const idValue = postsList.length + 1;
     // `${+ postsList.length + 1}`
@@ -58,33 +61,37 @@ export const Form = ({
       liked: false,
     };
 
+    dispatch(createNewPost(newPost)).finally(() => closeForm())
+
     // setNewPost(UserData);
     // const updatedPosts = [...postsList, ...newPost];
 
     // setLocalStorage(updatedPosts);
     // setPostsList(updatedPosts);
-    const response = await fetch(POSTS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newPost),
-    });
-    // console.log(response);
-    const newPostFromServer = await response.json();
-    if (response.ok) {
-      setPostsList([...postsList, newPostFromServer]);
-      // setLocalStorage([...postsList, newPostFromServer]);
-    } else {
-      console.log(new Error(`${response.status} - ${response.statusText}`));
-    }
+
+
+    // const response = await fetch(POSTS_URL, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newPost),
+    // });
+    // // console.log(response);
+    // const newPostFromServer = await response.json();
+    // if (response.ok) {
+    //   setPostsList([...postsList, newPostFromServer]);
+    //   // setLocalStorage([...postsList, newPostFromServer]);
+    // } else {
+    //   console.log(new Error(`${response.status} - ${response.statusText}`));
+    // }
     // console.log(updatedPosts);
-    closeForm();
+    // closeForm();
   };
 
   return (
     <div className="form_main">
-      <form className="form_container" onSubmit={handleSubmit}>
+      <form className="form_container" onSubmit={handleCreatePost}>
         <button className="form_button btn--up" onClick={closeForm}>
           Закрыть
         </button>

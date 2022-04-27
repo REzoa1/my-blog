@@ -19,26 +19,35 @@ import { NoMatch } from "./pages/NoMatch/NoMatch";
 import { useDocumentTitle, useFetchPosts } from "./utils/hooks";
 import { Form } from "./components/Posts/Form/Form";
 import { MainBlock } from "./components/MainBlock/MainBlock";
-import { useLogin } from "./AppProvider";
+// import { useLogin } from "./AppProvider";
 import { PostPage } from "./pages/PostPage/PostPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { POSTS_URL } from "./utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn } from "./store/slices/auth";
+import { fetchPosts, selectPosts } from "./store/slices/posts";
 // import { Test } from "./components/Test/Test";
 
 function App() {
-  const { isLoggedIn } = useLogin();
+  // const dispatch = useDispatch();
+  // const posts = useSelector(selectPosts);
+  // console.log(posts);
+
+  
+
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // console.log(isLoggedIn);
+  // const { isLoggedIn } = useLogin();
   document.title = "My Blog";
-  // useEffect(() => {
-  //   document.title = "My Blogdd";
-  // }, [document.title]);
-
-  // const lol =  "" + useDocumen()
-  // console.log(typeof lol);
-
+  // const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  // console.log(log);
+  // const dispatch = useDispatch();
+  // const logIn = () => {login}
+  // console.log(dispatch);
   // const [isLoggedIn, setIsLoggedIn] = useState(
-  //   // false
-  //   localStorage.getItem("isLoggedIn") === "true"
+  // false
+  // localStorage.getItem("isLoggedIn") === "true"
   // );
 
   // const postExist = false;
@@ -61,54 +70,7 @@ function App() {
   //   document.title = `Са ${count}`
   // }, [count]);
 
-  // useEffect(() => {
-  //   const handleKayUp = () => {
-  //     console.log("Клавиша нажата!");
-  //   };
-
-  //   window.addEventListener("keyup", handleKayUp);
-  //   return () => {
-  //     window.removeEventListener("keyup", handleKayUp);
-  //   };
-  // }, []);
-  // const [users, setUsers] = useState([]);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   const fetchUsers = async () => {
-  //     const response = await fetch(
-  //       "https://jsonplaceholder.typicode.com/users"
-  //     );
-  //     const response = await fetch(POSTS_URL + 1)
-  //      .then(async(res) => {
-  //       console.log(await res.json());
-  //      })
-  //     const json = await response.json();
-  //     setUsers(json);
-
-  //     setIsLoading(false);
-  //   };
-  //   fetchUsers();
-  // console.log(json);
-
-  // return ()
-  // .then(response => response.json())
-  // .then(json => console.log(json))
-
-  // fetch('https://jsonplaceholder.typicode.com/users')
-  //   .then(async (res) => {
-  //     console.log(await res.json());
-  //   })
-  // .catch((err) => {
-  //   console.log(err);
-  // })
-  // }, []);
-  // const isVisible = false;
-
-  // if (isLoading) return <h1>Загрузка...</h1>
-
-  
-    /* {isLoading ? (
+  /* {isLoading ? (
         <h1>Загрузка...</h1>
       ) : (
         <table border="1">
@@ -125,25 +87,21 @@ function App() {
         </table>
       )}
       {isVisible && <Test />} */
-  
 
-  
-    /* {isLoggedIn ? ( */
+  /* {isLoggedIn ? ( */
   const postsData = useFetchPosts(POSTS_URL);
   const blogPostRoutes = postsData.postsList.map((post) => {
-    return `/blog/${post.id}`
-  })
+    return `/blog/${post.id}`;
+  });
   // console.log(blogPostRoutes);
 
   return (
-    <BrowserRouter>
-      <>
-        <Switch>
-          {/* <Route exact path="/">
+    <Switch>
+      {/* <Route exact path="/">
             {isLoggedIn ? <Redirect to="/blog" /> : <Redirect to="/login" />}
           </Route> */}
 
-          {/* <Route
+      {/* <Route
             exact
             path="/login"
             render={(props) => {
@@ -152,25 +110,22 @@ function App() {
             }}
           /> */}
 
-          <PublicRoute exact path="/login" isLoggedIn={isLoggedIn} blogPostRoutes={blogPostRoutes}>
-            <LoginPage />
-          </PublicRoute>
+      <PublicRoute exact path="/login" blogPostRoutes={blogPostRoutes}>
+        <LoginPage />
+      </PublicRoute>
 
-          <PrivateRoute path="/" isLoggedIn={isLoggedIn} blogPostRoutes={blogPostRoutes}>
-            <MainBlock />
-          </PrivateRoute>
+      <PrivateRoute path="/" blogPostRoutes={blogPostRoutes}>
+        <MainBlock />
+      </PrivateRoute>
 
-          {/* <Route path="/">
+      {/* <Route path="/">
             {isLoggedIn ? <MainBlock /> : <Redirect to="/login" />}
           </Route> */}
 
-          {/* <Route exact path="*">
+      {/* <Route exact path="*">
               <NoMatch />
             </Route> */}
-        </Switch>
-        {/* </main> */}
-      </>
-    </BrowserRouter>
+    </Switch>
   );
 }
 
