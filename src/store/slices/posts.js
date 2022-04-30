@@ -10,7 +10,13 @@ const initialState = {
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   const response = await fetch(POSTS_URL);
   if (response.ok) {
+    // const total = response.headers.get("length");
+    // Object.keys(data.shareInfo[i]).length
+    // console.log(response);
+    // console.log(total);
+    // console.log(Math.ceil(total / 12));
     return await response.json();
+    
   } else {
     return new Error("Ошибка при получении постов");
   }
@@ -21,12 +27,12 @@ export const deletePost = createAsyncThunk(
   async (postId) => {
     // const isDelete = window.confirm("Удалить пост?");
     // if (isDelete) {
-      const response = await fetch(POSTS_URL + postId, { method: "DELETE" });
-      if (response.ok) {
-        return await response.json();
-      } else {
-        return new Error("Ошибка при удалении поста");
-      }
+    const response = await fetch(POSTS_URL + postId, { method: "DELETE" });
+    if (response.ok) {
+      return await response.json();
+    } else {
+      return new Error("Ошибка при удалении поста");
+    }
     // }
   }
 );
@@ -74,6 +80,9 @@ const postsSlice = createSlice({
     setPostsList: (state, action) => {
       state.postsList = action.payload;
     },
+    // setIsLoading: (state, action) => {
+    //   state.postsList = action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state, action) => {
@@ -88,7 +97,6 @@ const postsSlice = createSlice({
       state.isLoading = false;
     });
 
-    
     builder.addCase(deletePost.fulfilled, (state, action) => {
       state.postsList = state.postsList.filter(
         (post) => post.id !== action.payload.id
@@ -121,5 +129,6 @@ const postsSlice = createSlice({
 
 export const postsReducer = postsSlice.reducer;
 export const { setPostsList } = postsSlice.actions;
+// export const { setIsLoading } = postsSlice.actions;
 
 export const selectPostsData = (state) => state.posts;

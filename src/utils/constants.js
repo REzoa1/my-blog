@@ -4,7 +4,9 @@ export const APP_ROUTES = [
   '/',
   '/login',
   '/blog',
-  '/favourite'
+  '/favourite',
+  '/account'
+
 ]
 
 export const ARTICLES = [

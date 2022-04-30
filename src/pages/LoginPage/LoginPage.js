@@ -17,8 +17,8 @@ export const LoginPage = ({  }) => {
     e.preventDefault();
     setPasswordShown(!passwordShown);
   };
-  const loginProps = useInput("", true);
-  const passwordProps = useInput("", true);
+  const loginProps = useInput("", true, "login");
+  const passwordProps = useInput("", true, "password");
 
   // const { logIn } = useLogin();
 
@@ -54,12 +54,13 @@ export const LoginPage = ({  }) => {
       login: loginProps.formControlProps.value,
       password: passwordProps.formControlProps.value,
     };
-    console.log(userData);
+    // console.log(userData);
     // setIsLoggedIn(true);
-    dispatch(logIn());
+    dispatch(logIn(userData.login));
     history.push('/')
     // localStorage.setItem("isLoggedIn", true);
-  };
+  }
+  
   return (
     <div className="login_main">
       {/* <button onClick={() => dispatch(logIn())}>Btn</button>
