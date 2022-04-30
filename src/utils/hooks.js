@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import initialImg from "./../assets/img/avatar.png";
 
 export const useDocumentTitle = (title) => {
   useEffect(() => {
@@ -9,24 +10,43 @@ export const useDocumentTitle = (title) => {
   }, [title]);
 };
 
-export const useInput = (initialValue, required) => {
+export const useInput = (initialValue, required, type) => {
   const [value, setValue] = useState(initialValue);
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isWrong, setIsWrong] = useState("");
 
   return {
-    isEmpty,
+    isWrong,
     formControlProps: {
       value,
-      onChange: (e) => setValue(e.target.value),
+      onChange: (e) => {
+        setValue(e.target.value);
+        if (type === "login") {
+          if (/[^\w\ЁёА-я\s*]+/.test(e.target.value)) {
+            setIsWrong(
+              `Вы ввели недопустимый символ: ${e.target.value.match(
+                /([^\w\ЁёА-я\s*]+)/g
+              )}`
+            );
+          } else if (/^.{0,2}$/.test(e.target.value)) {
+            setIsWrong("Введите не менее 3 символов.");
+          } else setIsWrong("");
+        } else if (type === "password") {
+          if (/^.{0,7}$/.test(e.target.value)) {
+            setIsWrong("Введите не менее 8 символов.");
+          } else setIsWrong("");
+        }
+      },
+
       onBlur: (e) => {
         if (!e.target.value && required) {
-          setIsEmpty(true);
-        } else setIsEmpty(false);
+          setIsWrong("Заполните поле");
+        } else setIsWrong("");
       },
       required,
     },
   };
 };
+
 
 export const useCloseForm = (callback) => {
   useEffect(() => {
@@ -41,6 +61,24 @@ export const useCloseForm = (callback) => {
     };
   }, [callback]);
 };
+
+
+// export const useOnfocusForm = (callback, wrapperRef) => {
+//   useEffect(() => {
+//     const handleClickOutside = (e) => {
+//       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+//         callback();
+//       }
+//     }
+
+//     window.addEventListener("mousedown", handleClickOutside);
+//     return () => {
+//       window.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, [callback, wrapperRef]);
+// };
+
+
 // const reducer = (state, action) => {
 //   switch (action.type) {
 //     case "fetch":
@@ -93,7 +131,6 @@ export const useFetchPosts = (url) => {
   }, [url]);
   return { postsList, setPostsList, postsState };
 };
-
 
 export const useGetSinglePost = (url, postId) => {
   const [postState, setPostState] = useReducer(

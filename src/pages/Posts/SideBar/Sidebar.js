@@ -6,7 +6,7 @@ import star from "./../../../assets/img/svg/star.svg";
 import settings from "./../../../assets/img/svg/settings.svg";
 import add from "./../../../assets/img/svg/add.svg";
 
-import avatar from "./../../../assets/img/avatar.png";
+
 import { LogOut } from "./LogOut/LogOut";
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
@@ -14,10 +14,13 @@ import { useState } from "react";
 
 export const SideBar = ({
   setIsFormOpen,
+  userName,
+  avatar
 }) => {
   // const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   // console.log(isFormOpen);
+  // const avatar = localStorage.getItem("avatar")
   
   return (
     <div>
@@ -26,7 +29,7 @@ export const SideBar = ({
           <div className="avatar">
             <img src={avatar} alt="" />
           </div>
-          <h1 className="app">User</h1>
+          <h1 className="app">{userName}</h1>
         </div>
         {/* <div className="search">
           <img

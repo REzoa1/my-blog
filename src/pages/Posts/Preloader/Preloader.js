@@ -6,9 +6,10 @@ import "./Preloader.css";
 export const Preloader = ({ isLoading, children }) => {
   if (isLoading)
     return (
-      <div className="container">
+      <>
+        {/* <div className="preloader2"></div> */}
         <h1 className="preloader"><div className="loader"></div></h1>
-      </div>
+      </>
     );
   return children;
 };

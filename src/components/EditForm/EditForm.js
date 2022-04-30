@@ -48,7 +48,7 @@ export const EditForm = ({
         />
         <textarea
           className="editform_textarea"
-          cols="40"
+          // cols="40"
           placeholder="Описание"
           value={selectedPost.description}
           onChange={handleEditDescriptionValue}

@@ -8,7 +8,7 @@ export const links = {
     path: "/favourite",
   },
   link3: {
-    name: "Настройки",
-    path: "/settings",
+    name: "Аккаунт",
+    path: "/account",
   },
 };

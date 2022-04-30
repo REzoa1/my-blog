@@ -17,12 +17,17 @@ const authSlice = createSlice({
     logIn(state, action) {
       state.isLoggedIn = true;
       localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("LoginValue", action.payload);
+
       // console.log(action);
       // return { ...state, isLoggedIn: localStorage.setItem("isLoggedIn", true),  };
     },
     logOut(state, action) {
       state.isLoggedIn = false;
       localStorage.removeItem("isLoggedIn");
+      // localStorage.removeItem("LoginValue");
+      // localStorage.removeItem("avatar");
+      // localStorage.removeItem("age");
     },
   },
 });

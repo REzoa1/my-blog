@@ -17,15 +17,20 @@ import {
   setPostsList,
 } from "../../store/slices/posts";
 import { deleteConfirmation } from "../../utils/helpers";
-// import { Favourite } from "../../pages/Favourite/Favourite";
+import Search from "antd/lib/transfer/search";
+import Input from "antd/lib/input/Input";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
+// import { Favourite } from "../../pages/Favourite/Favourite";
 export const Posts = ({ title, isFavourite = false }) => {
+  // const history = useHistory();
   const { postsList, isLoading, error } = useSelector(selectPostsData);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
   // const [postsList, setPostsList] = useState([]);
+  const { postsState } = useFetchPosts(POSTS_URL);
 
   // const { postsList, setPostsList, postsState } = useFetchPosts(POSTS_URL);
 
@@ -41,6 +46,7 @@ export const Posts = ({ title, isFavourite = false }) => {
   // const postsList = postsState.posts;
 
   const likedPosts = postsList.filter((post) => post.liked);
+  // console.log(likedPosts);
   // if (isFavourite) {
   //   postsList = postsList.filter((post) => post.liked)
   // }
@@ -50,10 +56,7 @@ export const Posts = ({ title, isFavourite = false }) => {
 
   useDocumentTitle("Посты");
   // const [postsList, setPostsList] = useState([]);
-  // useEffect(() => {
-  //   setLocalStorage(postsList);
-  //   setPostsList(postsList);
-  // }, []);
+
 
   // useEffect(() => {
   //   // console.log('vot');
@@ -138,14 +141,17 @@ export const Posts = ({ title, isFavourite = false }) => {
   //     console.log(new Error(`${response.status} - ${response.statusText}`));
   //   }
   // };
-  const handleLikePost = (index) => {
-    const updatedPosts = [...postsList];
-    updatedPosts[index] = {
-      ...updatedPosts[index],
-      liked: !updatedPosts[index].liked,
-    };
+  const handleLikePost = (post, index) => {
+    // const updatedPosts = [...postsList];
+    // updatedPosts[index] = {
+    //   ...updatedPosts[index],
+    //   liked: !updatedPosts[index].liked,
+    // };
+    // dispatch(editPost(updatedPosts[index]));
 
-    dispatch(editPost(updatedPosts[index]));
+    const updatedPosts = { ...post, liked: !post.liked };
+    dispatch(editPost(updatedPosts));
+    
   };
 
   // const deletePost = async (postId) => {
@@ -217,8 +223,8 @@ export const Posts = ({ title, isFavourite = false }) => {
     setSelectedPost(blogPost);
   };
 
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const openForm = () => setIsFormOpen(true);
+  // const [isFormOpen, setIsFormOpen] = useState(false);
+  // const openForm = () => setIsFormOpen(true);
 
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const openEditForm = () => setIsEditFormOpen(true);
@@ -235,7 +241,7 @@ export const Posts = ({ title, isFavourite = false }) => {
         // imgSrc={post.imgSrc}
         // imgAlt={post.imgAlt}
         {...post}
-        like={() => handleLikePost(pos)}
+        like={() => handleLikePost(post, pos)}
         // liked={post.liked}
         deletePost={() => handleDeletePost(post.id)}
         openEditForm={() => openEditForm(post.id)}
@@ -274,11 +280,12 @@ export const Posts = ({ title, isFavourite = false }) => {
   //   setInputValue(e.target.value)
   // }
   // const posts = []
+
   const filterValue = (e) => {
     setInputValue(e.target.value);
 
     // if (e.target.value === "") return setPostsList(postsState.posts);
-    if (e.target.value === "") return setPostsList(postsList);
+    if (e.target.value === "") return dispatch(setPostsList(postsState.posts));
     else
       dispatch(
         setPostsList(
@@ -291,9 +298,10 @@ export const Posts = ({ title, isFavourite = false }) => {
         )
       );
   };
-
+  const onSearch = value => console.log(value);
+  // const { Search } = Input;
   return (
-    <header>
+    <>
       {/* {!firstTime && ( */}
 
       {/* <NewPost setPostsList={setPostsList} setIsLoading={setIsLoading} postsList={postsList} />*/}
@@ -313,25 +321,31 @@ export const Posts = ({ title, isFavourite = false }) => {
           setSelectedPost={setSelectedPost}
         />
       )} */}
-      <Preloader isLoading={isLoading}>
-        {isFormOpen && (
+      
+        {/* {isFormOpen && (
           <Form
             setIsFormOpen={setIsFormOpen}
             postsList={postsList}
             // setPostsList={setPostsList}
             // setLocalStorage={setLocalStorage}
           />
-        )}
+        )} */}
         <div className="container">
+        <Preloader isLoading={isLoading}>
           <div className="posts__title">
             {title}
-            <div className="posts__search"><input
-              value={inputValue}
-              onChange={filterValue}
-              className="search__input"
-              type="text"
-              placeholder="Найти"
-            /></div>
+            <div className="posts__search">
+            <Search placeholder="Найти" onSearch={onSearch} onChange={filterValue} />
+            </div>
+            {/* <div className="posts__search">
+              <input
+                value={inputValue}
+                onChange={filterValue}
+                className="search__input"
+                type="text"
+                placeholder="Найти"
+              />
+            </div> */}
 
             {/* {!isFavourite && (
               <button href="#" className="posts__btn" onClick={openForm}>
@@ -341,7 +355,10 @@ export const Posts = ({ title, isFavourite = false }) => {
           </div>
           {/* <div className="posts"> */}
           <div className="posts">{postsUI}</div>
+          {/* <Pagination defaultPageSize={1} size="small"  pageSize={1}/> */}
 
+          
+            
           {/* style={{backgroundColor: 'blue'}} */}
           {/* <button onClick={() => deletePost(articleInfo[1].id)}></button> */}
           {/* <Article
@@ -367,8 +384,9 @@ export const Posts = ({ title, isFavourite = false }) => {
             description={articleInfo.article6.description}
           /> */}
           {/* </div> */}
+          </Preloader>
         </div>
-      </Preloader>
-    </header>
+      
+    </>
   );
 };
