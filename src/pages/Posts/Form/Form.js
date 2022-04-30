@@ -202,6 +202,7 @@ export const Form = ({
             size="large"
             htmlType="submit"
             icon={<FileAddFilled />}
+            className="form_upload"
           >
             Добавить пост &nbsp;
           </Button>

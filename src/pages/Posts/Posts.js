@@ -57,7 +57,6 @@ export const Posts = ({ title, isFavourite = false }) => {
   useDocumentTitle("Посты");
   // const [postsList, setPostsList] = useState([]);
 
-
   // useEffect(() => {
   //   // console.log('vot');
   //   const fetchPosts = async () => {
@@ -142,16 +141,17 @@ export const Posts = ({ title, isFavourite = false }) => {
   //   }
   // };
   const handleLikePost = (post, index) => {
-    // const updatedPosts = [...postsList];
-    // updatedPosts[index] = {
-    //   ...updatedPosts[index],
-    //   liked: !updatedPosts[index].liked,
-    // };
-    // dispatch(editPost(updatedPosts[index]));
-
-    const updatedPosts = { ...post, liked: !post.liked };
-    dispatch(editPost(updatedPosts));
-    
+    if (!isFavourite) {
+      const updatedPosts = [...postsList];
+      updatedPosts[index] = {
+        ...updatedPosts[index],
+        liked: !updatedPosts[index].liked,
+      };
+      dispatch(editPost(updatedPosts[index]));
+    } else {
+      const updatedPosts = { ...post, liked: !post.liked };
+      dispatch(editPost(updatedPosts));
+    }
   };
 
   // const deletePost = async (postId) => {
@@ -298,7 +298,7 @@ export const Posts = ({ title, isFavourite = false }) => {
         )
       );
   };
-  const onSearch = value => console.log(value);
+  const onSearch = (value) => console.log(value);
   // const { Search } = Input;
   return (
     <>
@@ -321,8 +321,8 @@ export const Posts = ({ title, isFavourite = false }) => {
           setSelectedPost={setSelectedPost}
         />
       )} */}
-      
-        {/* {isFormOpen && (
+
+      {/* {isFormOpen && (
           <Form
             setIsFormOpen={setIsFormOpen}
             postsList={postsList}
@@ -330,12 +330,16 @@ export const Posts = ({ title, isFavourite = false }) => {
             // setLocalStorage={setLocalStorage}
           />
         )} */}
-        <div className="container">
+      <div className="container">
         <Preloader isLoading={isLoading}>
           <div className="posts__title">
             {title}
             <div className="posts__search">
-            <Search placeholder="Найти" onSearch={onSearch} onChange={filterValue} />
+              <Search
+                placeholder="Найти"
+                onSearch={onSearch}
+                onChange={filterValue}
+              />
             </div>
             {/* <div className="posts__search">
               <input
@@ -357,8 +361,6 @@ export const Posts = ({ title, isFavourite = false }) => {
           <div className="posts">{postsUI}</div>
           {/* <Pagination defaultPageSize={1} size="small"  pageSize={1}/> */}
 
-          
-            
           {/* style={{backgroundColor: 'blue'}} */}
           {/* <button onClick={() => deletePost(articleInfo[1].id)}></button> */}
           {/* <Article
@@ -384,9 +386,8 @@ export const Posts = ({ title, isFavourite = false }) => {
             description={articleInfo.article6.description}
           /> */}
           {/* </div> */}
-          </Preloader>
-        </div>
-      
+        </Preloader>
+      </div>
     </>
   );
 };
