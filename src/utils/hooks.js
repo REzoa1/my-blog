@@ -1,12 +1,9 @@
 import { useEffect, useReducer, useState } from "react";
-import initialImg from "./../assets/img/avatar.png";
+import noAvatar from "./../assets/img/avatar.png";
 
 export const useDocumentTitle = (title) => {
   useEffect(() => {
     document.title = `My Blog: ${title}`;
-    // return document.title
-    // console.log(document.title);
-    // return document.title;
   }, [title]);
 };
 
@@ -20,33 +17,33 @@ export const useInput = (initialValue, required, type) => {
       value,
       onChange: (e) => {
         setValue(e.target.value);
-        if (type === "login") {
-          if (/[^\w\ЁёА-я\s*]+/.test(e.target.value)) {
-            setIsWrong(
-              `Вы ввели недопустимый символ: ${e.target.value.match(
-                /([^\w\ЁёА-я\s*]+)/g
-              )}`
-            );
-          } else if (/^.{0,2}$/.test(e.target.value)) {
-            setIsWrong("Введите не менее 3 символов.");
-          } else setIsWrong("");
-        } else if (type === "password") {
-          if (/^.{0,7}$/.test(e.target.value)) {
-            setIsWrong("Введите не менее 8 символов.");
-          } else setIsWrong("");
+        switch (type) {
+          case "login":
+            const loginValid = e.target.value.match(/([^\wЁёА-я\s*]+)/g);
+            loginValid
+              ? setIsWrong(`Вы ввели недопустимый символ: ${loginValid}`)
+              : e.target.value.length < 3
+              ? setIsWrong("Введите не менее 3 символов.")
+              : setIsWrong("");
+            break;
+          case "password":
+            e.target.value.length < 8
+              ? setIsWrong("Введите не менее 8 символов.")
+              : setIsWrong("");
+            break;
+          default:
+            setIsWrong("Заполните поле");
         }
       },
-
       onBlur: (e) => {
         if (!e.target.value && required) {
           setIsWrong("Заполните поле");
-        } else setIsWrong("");
+        }
       },
       required,
     },
   };
 };
-
 
 export const useCloseForm = (callback) => {
   useEffect(() => {
@@ -62,7 +59,6 @@ export const useCloseForm = (callback) => {
   }, [callback]);
 };
 
-
 // export const useOnfocusForm = (callback, wrapperRef) => {
 //   useEffect(() => {
 //     const handleClickOutside = (e) => {
@@ -77,7 +73,6 @@ export const useCloseForm = (callback) => {
 //     };
 //   }, [callback, wrapperRef]);
 // };
-
 
 // const reducer = (state, action) => {
 //   switch (action.type) {
@@ -157,4 +152,16 @@ export const useGetSinglePost = (url, postId) => {
       });
   }, [url, postId]);
   return { postList, setPostList, postState, setPostState };
+};
+
+export const useAccountState = () => {
+  const [userState, setUserState] = useReducer(
+    (userState, newPost) => ({ ...userState, ...newPost }),
+    {
+      avatar: localStorage.getItem("avatar") || noAvatar,
+      userName: localStorage.getItem("LoginValue"),
+      age: localStorage.getItem("age") || 1,
+    }
+  );
+  return { userState, setUserState };
 };

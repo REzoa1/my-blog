@@ -26,62 +26,38 @@ export const Article = ({
   description,
   imgSrc = noImage,
   imgAlt = "No image",
-
   like,
   liked,
-
   deletePost,
-
   openEditForm,
   editFormShow,
-
   setIsEditFormOpen,
-  postsList,
-  setPostsList,
-
   selectedPost,
-  setLocalStorage,
   setSelectedPost,
   isEditFormOpen,
-
-  // isFavourite,
 }) => {
   const showEditForm = () => {
     openEditForm();
     editFormShow();
   };
-
-  // const [isLiked, setIsLiked] = useState(liked);
-  // const like = () => setIsLiked(!isLiked);
   const customFilling = liked ? "crimson" : "black";
-  // if (!title && !description) {
-  //   return null;
-  // }
-  // const isRightPost = selectedPost.id === id;
-
+  
   const edit = (
     <>
-      {/* <div className="article__main"> */}
-
       <Link className="article__main" to={`/blog/${id}`}>
-        <h3 className="article__title">{name.split(" ").slice(0,4).join(" ")}</h3>
+        <h3 className="article__title">
+          {name.split(" ").slice(0, 4).join(" ")}
+        </h3>
         <Description description={description} />
       </Link>
-      {/* </div> */}
-      {/* {!isFavourite && ( */}
       <div className="article_btns">
         <button className="btn" onClick={showEditForm}>
-          {/* Ред. &nbsp;  */}
           <EditOutlined />
         </button>
         <button className="btn" onClick={deletePost}>
-          {/* Удалить &nbsp; */}
           <DeleteOutlined />
-
-          {/* <img className="link__icons" src={deleteIcon} /> */}
         </button>
       </div>
-      {/* )} */}
     </>
   );
 
@@ -91,22 +67,14 @@ export const Article = ({
         <div className="article__container">
           <img src={imgSrc} className="article__img" alt={imgAlt} />
         </div>
-        
-        {/* {console.log(isFavourite)} */}
-
         <button className="like__btn" onClick={like}>
           <HeartIcon fill={customFilling} className="like" />
         </button>
         {isEditFormOpen && selectedPost.id === id ? (
           <EditForm
-            // isEditFormOpen={isEditFormOpen}
             setIsEditFormOpen={setIsEditFormOpen}
             postList={selectedPost}
             setPostList={setSelectedPost}
-            // selectedPost={selectedPost}
-            // setSelectedPost={setSelectedPost}
-            // setLocalStorage={setLocalStorage}
-            // isRightPost={isRightPost}
           />
         ) : (
           edit

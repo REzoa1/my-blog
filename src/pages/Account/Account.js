@@ -8,8 +8,9 @@ import { Preloader } from "../Posts/Preloader/Preloader";
 
 export const Account = ({ userState, setUserState }) => {
   const isAccount = true;
-  const { avatar, userName, age } = userState;
-
+  // const { avatar, userName, age } = userState;
+  // const { userState, setUserState } = useAccountState();
+  const { age } = userState;
   // console.log(avatar);
   const [isLoading, setIsLoading] = useState(false);
   const formHandler = (e) => {
@@ -34,9 +35,8 @@ export const Account = ({ userState, setUserState }) => {
   );
   const closeForm = useCallback(() => setIsEdit(false), [setIsEdit]);
   return (
-  
-      <div className="container">
-          <Preloader isLoading={isLoading}>
+    <div className="container">
+      <Preloader isLoading={isLoading}>
         <div className="account__main">
           <div className="account__title">Аккаунт</div>
 
@@ -44,9 +44,9 @@ export const Account = ({ userState, setUserState }) => {
             <div className="account__item">
               <h1 className="account__subtitle">Аватарка:</h1>
               <input
+                className="account__input"
                 name="photo"
                 type="file"
-                className="account__input"
                 accept=".png,.jpg,.jpeg"
               />
             </div>
@@ -101,12 +101,10 @@ export const Account = ({ userState, setUserState }) => {
               <Button type="primary" htmlType="submit">
                 Сохранить изменения
               </Button>
-
-              {/* {progress != 0 && <h2>Загрузка изменений {progress}%</h2>} */}
             </div>
           </form>
         </div>
-        </Preloader>
-      </div>
+      </Preloader>
+    </div>
   );
 };

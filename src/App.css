@@ -1,12 +1,8 @@
-
 .App {
-  
   text-align: left;
   /* display: flex; */
   display: flex;
   flex-direction: row;
-  
-  
 }
 /* .main__class {
   background-color: #ccc;
@@ -47,18 +43,16 @@
   }
 }
 
-
-
 .App_main {
   background-color: #ff0000;
   position: absolute;
 }
 body {
   margin: 0;
-  
 }
 
-input, button {
+input,
+button {
   padding: 5px;
   outline: none;
   border: none;
@@ -68,23 +62,24 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 30px;
+  /* padding: 30px; */
   overflow: auto;
-  
-
 
   /* max-height: 850px; */
   /* height:100%; */
   /* min-height:100%; */
   /* justify-content: center; */
 
-
   background-color: #f0f0f0;
   /* width: 600px; */
 }
 
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
@@ -94,16 +89,16 @@ p {
 
 *,
 *:before,
-*:after { 
-    box-sizing: border-box;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 16px; 
-} 
-
+*:after {
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+}
 
 .container {
-  padding: 0 15px;
+  /* padding: 0 15px; */
   margin: 0 0 0 250px;
+  padding: 0 50px;
   /* background-color: #f0f0f0; */
 }
 
@@ -114,5 +109,3 @@ p {
     /* height: 50%; */
   }
 }
-
-

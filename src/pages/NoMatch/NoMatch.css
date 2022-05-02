@@ -1,0 +1,38 @@
+
+
+.nomatch__form {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+.nomatch__div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.nomatch__div h1 {
+  font-size: 50px;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type 0.5s alternate infinite;
+}
+.nomatch__div h2 {
+  color: #888;
+}
+.nomatch__button {
+    background: none;
+    text-decoration:underline ;
+    cursor: pointer;
+    color: #189eff;
+}
+
+@keyframes type {
+  from {
+    box-shadow: inset -3px 0px 0px #888;
+  }
+  to {
+    box-shadow: inset -3px 0px 0px transparent;
+  }
+}
