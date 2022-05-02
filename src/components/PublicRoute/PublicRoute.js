@@ -12,10 +12,6 @@ export const PublicRoute = ({
   blogPostRoutes,
 }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  // const { posts } = useSelector(selectPostsData);
-  // const blogPostRoutes = posts?.map((post) => {
-  //   return `/blog/${post.id}`;
-  // });
   return (
     <Route
       path={path}

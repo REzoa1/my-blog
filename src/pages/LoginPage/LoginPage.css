@@ -58,6 +58,16 @@
   font-size: 16px;
   font-weight: bold;
 }
+.button-form:disabled,
+button[disabled] {
+  background-color: #9c9c9c;
+
+}
+.button-form:disabled:hover,
+button[disabled] {
+  background-color: #a7a7a7;
+
+}
 .button-form:hover {
   background-color: #2575df;
   transition: 0.15s linear;

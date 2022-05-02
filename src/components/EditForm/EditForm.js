@@ -9,7 +9,6 @@ export const EditForm = ({
   setIsEditFormOpen,
   postList,
   setPostList,
-  // setSelectedPost,
 }) => {
   const [selectedPost, setSelectedPost] = useState(postList);
   const closeEditForm = useCallback(
