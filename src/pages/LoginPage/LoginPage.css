@@ -1,9 +1,4 @@
-/* ::selection {
-  color: black;
-  background: #db7093;
-} */
-
-.login_main {
+.login__main {
   position: absolute;
   background: linear-gradient(#00000070, #00000070),
     url(https://source.unsplash.com/random/1920x1080/?nature) center no-repeat;
@@ -11,7 +6,7 @@
   height: 100%;
 }
 
-.login_form {
+.login__form {
   box-shadow: 0 15px 45px 15px #00000054;
   position: absolute;
   width: 500px;
@@ -19,113 +14,60 @@
   top: 50%;
   right: 15%;
   transform: translateY(-50%);
-  padding: 80px 5%;
+  padding: 70px;
   background: #edeff0;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
-.login_content {
+.login__title {
+  color: #333;
+  font-size: 44px;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
   margin-bottom: 40px;
 }
-.login_placeholder {
-  color: #747474;
-  font-size: 13px;
-}
-.input_form {
+.input__form {
   background-color: transparent;
   width: 85%;
   font-size: 16px;
   color: #333;
   border-bottom: 1px solid transparent;
 }
-.login_input {
-  width: 90%;
-}
 
-.button-form {
+.login__button {
   margin-top: 10px;
-  background-color: #2984f8;
+  background-color: #1473e6;
   color: #fff;
   cursor: pointer;
+  padding: 5px 25px;
   width: 100%;
-  height: 60px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-
-  border-radius: 10px;
-  font-size: 16px;
+  height: 50px;
+  position: relative;
+  border-radius: 4px;
+  float: right;
   font-weight: bold;
 }
-.button-form:disabled,
-button[disabled] {
+.login__button:disabled {
   background-color: #9c9c9c;
-
 }
-.button-form:disabled:hover,
-button[disabled] {
+.login__button:disabled:hover {
   background-color: #a7a7a7;
-
 }
-.button-form:hover {
-  background-color: #2575df;
+.login__button:hover {
+  background-color: #246ac5;
   transition: 0.15s linear;
 }
-.login_icon {
-  color: transparent;
-}
 
-.login_text {
-  /* margin-bottom: 55px; */
-  color: #333;
-  font-size: 48px;
-  font-weight: bold;
-  letter-spacing: 0.1rem;
-}
-.login_input-border {
-  display: block;
-  height: 1px;
-  background-color: #d3d3d3;
-}
-.login_password:hover .login_input-border {
-  background-color: #333;
-}
-
-.login_password:focus-within .login_input-border {
-  background-color: #2575df;
-}
-.login_password {
-  position: relative;
-}
-.login_eye {
-  cursor: pointer;
-  background: none;
-  position: absolute;
-  width: 30px;
-  right: 5px;
-  top: 15px;
-
-  font-size: 16px;
-  color: #333333a4;
-}
-.login_eye:hover {
-  color: #333;
-}
 @media (max-width: 1300px) {
-  .login_main {
+  .login__main {
     background-size: cover;
-    /* height: auto; */
-    /* overflow: hidden; */
   }
-  .login_form {
+  .login__form {
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     height: auto;
-    /* height: 100%; */
-    /* padding: 2% 5%; */
   }
 
   .login_text {
@@ -136,22 +78,17 @@ button[disabled] {
   }
 }
 @media (max-width: 900px) {
-  .login_main {
+  .login__main {
     background: none;
     background-color: #edeff0;
     width: 100%;
     height: 90%;
   }
-  .login_form {
+  .login__form {
     box-shadow: none;
-    /* position: absolute;
-    right: 0;
-    left: 0; */
     top: 10%;
     width: 100%;
     height: 100%;
-    /* margin: 0; */
-
     transform: none;
     padding: 0 5%;
   }

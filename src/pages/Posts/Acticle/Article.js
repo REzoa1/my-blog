@@ -1,30 +1,16 @@
-// import { NO_IMAGE } from "./../img/placeholder.png"
-import noImage from "./../../../assets/img/placeholder.png";
+import NO_IMAGE from "./../../../assets/img/placeholder.png";
 import "./Article.css";
-
 import { Description } from "./Description/Description";
 import { ReactComponent as HeartIcon } from "./../../../assets/img/svg/heart-black.svg";
-import editIcon from "./../../../assets/img/svg/edit.svg";
-import deleteIcon from "./../../../assets/img/svg/delete.svg";
-// import { useState } from "react";
-// import { EditForm } from "./../EditForm/EditForm";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { EditForm } from "../../../components/EditForm/EditForm";
-import {
-  DeleteFilled,
-  DeleteOutlined,
-  DeleteTwoTone,
-  EditFilled,
-  EditOutlined,
-  EditTwoTone,
-} from "@ant-design/icons";
-// import { Favourite } from "../../../pages/Favourite/Favourite";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export const Article = ({
   id,
   name,
   description,
-  imgSrc = noImage,
+  imgSrc = NO_IMAGE,
   imgAlt = "No image",
   like,
   liked,
@@ -41,7 +27,7 @@ export const Article = ({
     editFormShow();
   };
   const customFilling = liked ? "crimson" : "black";
-  
+
   const edit = (
     <>
       <Link className="article__main" to={`/blog/${id}`}>
@@ -50,7 +36,7 @@ export const Article = ({
         </h3>
         <Description description={description} />
       </Link>
-      <div className="article_btns">
+      <div className="btn__group">
         <button className="btn" onClick={showEditForm}>
           <EditOutlined />
         </button>
@@ -62,13 +48,13 @@ export const Article = ({
   );
 
   return (
-    <div className="posts__item">
+    <div className="article__item">
       <article className="article__head">
         <div className="article__container">
           <img src={imgSrc} className="article__img" alt={imgAlt} />
         </div>
         <button className="like__btn" onClick={like}>
-          <HeartIcon fill={customFilling} className="like" />
+          <HeartIcon className="like__icon" fill={customFilling} />
         </button>
         {isEditFormOpen && selectedPost.id === id ? (
           <EditForm

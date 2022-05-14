@@ -18,9 +18,9 @@ export const FormControl = ({
       <FontAwesomeIcon icon={icon} color="#ccc" />
       <input className={className} type={type} {...formControlProps} maxLength={maxLength}/>
       <p className="error">{isWrong}</p>
-      <span className={`login_content login_input-border${isWrong && "--red"}`} />
+      <span className={`login__input-border${isWrong && "--red"}`} />
       {icon_eye && (
-        <button className="login_eye" onClick={onClick}>
+        <button className="login__eye" onClick={onClick}>
           <FontAwesomeIcon icon={icon_eye} />
         </button>
       )}

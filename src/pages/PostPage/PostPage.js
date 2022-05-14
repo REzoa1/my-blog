@@ -2,7 +2,7 @@ import "./PostPage.css";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import noImage from "./../../assets/img/placeholder.png";
 import React, { useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { POSTS_URL } from "../../utils/constants";
 import { ReactComponent as HeartIcon } from "./../../assets/img/svg/heart-black.svg";
 import { useGetSinglePost } from "../../utils/hooks";
@@ -11,7 +11,6 @@ import { editPost } from "../../store/slices/posts";
 import { EditForm } from "../../components/EditForm/EditForm";
 import { deleteConfirmation } from "../../utils/helpers";
 import { Preloader } from "../Posts/Preloader/Preloader";
-
 
 export const PostPage = () => {
   const { postId } = useParams();
@@ -42,7 +41,7 @@ export const PostPage = () => {
     <>
       <h1 className="selectedpost_title">{name}</h1>
       <p className="selectedpost__title">{description}</p>
-      <div className="article_btns">
+      <div className="btn__group">
         <button className="btn" onClick={handleEditFormShow}>
           <EditOutlined />
         </button>
@@ -52,7 +51,6 @@ export const PostPage = () => {
       </div>
     </>
   );
-
   return (
     <div className="container">
       <Preloader isLoading={postState.isLoading}>
@@ -63,8 +61,9 @@ export const PostPage = () => {
               className="selectedpost__img"
               alt={imgAlt}
             />
+
             <div className="like__btn" onClick={handleLikePost}>
-              <HeartIcon fill={customFilling} className="like" />
+              <HeartIcon fill={customFilling} className="like__icon" />
             </div>
           </div>
           <div className="selectedpost_main">
@@ -78,7 +77,7 @@ export const PostPage = () => {
               edit
             )}
           </div>
-          <Link to={`/blog`}>Назад</Link>
+          <button className="selectedpost_button" onClick={() => history.goBack()}>Назад</button>
         </article>
       </Preloader>
     </div>

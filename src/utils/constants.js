@@ -1,11 +1,13 @@
 export const POSTS_URL = "https://6239efedbbe20c3f66cc84f6.mockapi.io/posts/";
+export const USER_URL = "https://6239efedbbe20c3f66cc84f6.mockapi.io/user/";
+
 export const APP_ROUTES = [
-  '/',
-  '/login',
-  '/blog',
-  '/favourite',
-  '/account'
-]
+  "/",
+  "/login",
+  "/blog",
+  "/favourite",
+  "/account",
+];
 
 export const ARTICLES = [
   {

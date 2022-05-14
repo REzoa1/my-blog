@@ -1,72 +1,73 @@
-.account__main {
+.account__form {
+  margin: 50px 50px 15px 50px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
   background-color: #fff;
-  border-radius: 20px;
-  /* padding-bottom: 20px; */
-  margin-top: 15px;
-  padding: 20px 0;
+  border-radius: 10px;
 }
-.account__title {
-  /* margin: 20px 100px; */
-  padding: 20px;
+.account__container:first-child {
+  border: none;
+}
+.account__container {
+  padding: 30px;
+  border-left: 1px solid #ccc;
   text-align: center;
-  font-size: 36px;
-  font-weight: bold;
 }
-
 .account__avatar {
-  /* width: 100%; */
-  height: 100px;
+  height: 200px;
   overflow: hidden;
   border-radius: 50%;
-  width: 100px;
-  /* margin: 0; */
-  /* position: relative;
-  align-items: center;
-  text-align: center; */
+  width: 200px;
+  object-fit: cover;
 }
-.account__subtitle {
+.account__name {
+  padding: 25px 0 0 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #292a2f;
+}
+.account__email {
+  color: #888;
+}
+.account__title {
+  text-align: left;
+  font-size: 26px;
+  font-weight: 700;
+}
 
+.account__subtitle {
   font-size: 13px;
   color: #a0a0a0;
+  text-align: left;
+  margin-bottom: 10px;
 }
-.account__item{
+.account__item {
   display: flex;
   flex-direction: column;
   margin: 20px 0;
 }
-.account__item:last-child {
-  /* max-width: 600px; */
-  text-align: right;
+.account__item:first-child {
+  margin: 0 0 20px 0;
 }
-.account__field{
-  /* width: 500px; */
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content:space-between;
-}
-.account__form {
-  max-width: 600px;
 
-  /* position: relative; */
-  /* align-items: center; */
-  /* margin-left: auto 0; */
+.account__field {
   text-align: left;
-  /* align-items: center; */
-  display: flex;
-  flex-direction: column;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /* justify-content:right; */
-}
-/* .account__form:last-child {
-    max-width: 600px;
-    text-align: right;
-
-    
-} */
-.account__input {
   font-size: 16px;
-  color: #000;
-  /* display: none; */
+}
+.ant-typography pre {
+  margin: 0em 0;
+}
+
+.ant-input {
+  padding: 0.4em 0.6em;
+}
+@media (max-width: 950px) {
+  .account__form {
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+  .account__container {
+    padding: 30px;
+    border-left: none;
+  }
 }

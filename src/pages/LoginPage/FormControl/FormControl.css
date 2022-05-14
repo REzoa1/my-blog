@@ -1,12 +1,49 @@
+.login_password:hover .login_input-border {
+  background-color: #8b8b8b;
+}
+
+.login_password {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.login_placeholder {
+  color: #747474;
+  font-size: 13px;
+}
+
 .error {
   color: #dc143cb9;
   position: absolute;
   bottom: -20px;
   font-size: 12px;
 }
+.login__input-border {
+  display: block;
+  height: 1px;
+  background-color: #d3d3d3;
+}
 
-.login_input-border--red {
+.login_password:focus-within .login__input-border {
+  background-color: #2575df;
+}
+
+.login__input-border--red {
   display: block;
   height: 1px;
   background-color: #dc143cb9;
+}
+.login__eye {
+  cursor: pointer;
+  background: none;
+  position: absolute;
+  width: 30px;
+  right: 5px;
+  top: 15px;
+
+  font-size: 16px;
+  color: #333333a4;
+}
+.login__eye:hover {
+  color: #333;
 }

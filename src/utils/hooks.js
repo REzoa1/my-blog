@@ -1,5 +1,4 @@
 import { useEffect, useReducer, useState } from "react";
-import noAvatar from "./../assets/img/avatar.png";
 
 export const useDocumentTitle = (title) => {
   useEffect(() => {
@@ -45,61 +44,25 @@ export const useInput = (initialValue, required, type) => {
   };
 };
 
-export const useCloseForm = (callback) => {
+export const useCloseForm = (callback, ref) => {
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") {
+    const handleClose = (e) => {
+      if (
+        e.key === "Escape" ||
+        (ref.current && !ref.current.contains(e.target))
+      ) {
         callback();
       }
     };
-    window.addEventListener("keydown", handleEscape);
+    window.addEventListener("mousedown", handleClose);
+    window.addEventListener("keydown", handleClose);
     return () => {
-      window.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("keydown", handleClose);
+      window.removeEventListener("mousedown", handleClose);
     };
-  }, [callback]);
+  }, [callback, ref]);
 };
 
-// export const useOnfocusForm = (callback, wrapperRef) => {
-//   useEffect(() => {
-//     const handleClickOutside = (e) => {
-//       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-//         callback();
-//       }
-//     }
-
-//     window.addEventListener("mousedown", handleClickOutside);
-//     return () => {
-//       window.removeEventListener("mousedown", handleClickOutside);
-//     };
-//   }, [callback, wrapperRef]);
-// };
-
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "fetch":
-//       return {
-//         ...state,
-//         posts: action.payload,
-//       };
-//     case "posts":
-//       return {
-//         ...state,
-//         type: action.type,
-//       };
-//     case "load":
-//       return {
-//         ...state,
-//         isLoading: !state.isLoading,
-//       };
-//     case "error":
-//       return {
-//         ...state,
-//         error: state.error,
-//       };
-//     default:
-//       return state;
-//   }
-// };
 export const useFetchPosts = (url) => {
   const [postsState, setPostsState] = useReducer(
     (postsState, newPost) => ({ ...postsState, ...newPost }),
@@ -154,14 +117,25 @@ export const useGetSinglePost = (url, postId) => {
   return { postList, setPostList, postState, setPostState };
 };
 
-export const useAccountState = () => {
+export const useAccountState = (url) => {
   const [userState, setUserState] = useReducer(
     (userState, newPost) => ({ ...userState, ...newPost }),
     {
-      avatar: localStorage.getItem("avatar") || noAvatar,
-      userName: localStorage.getItem("LoginValue"),
-      age: localStorage.getItem("age") || 1,
+      data: {},
+      isLoading: false,
     }
   );
+  useEffect(() => {
+    setUserState({ isLoading: true });
+    fetch(url + "1")
+      .then((res) => res.json())
+      .then((userDataFromServer) => {
+        setUserState({ data: userDataFromServer, isLoading: false });
+      })
+      .catch((error) => {
+        setUserState({ isLoading: false });
+        console.log(error);
+      });
+  }, [url]);
   return { userState, setUserState };
 };

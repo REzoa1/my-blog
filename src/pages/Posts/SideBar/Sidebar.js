@@ -1,32 +1,40 @@
 import "./SideBar.css";
 import { links } from "./Link/link";
-import blog from "./../../../assets/img/svg/blog.svg";
-import star from "./../../../assets/img/svg/star.svg";
-import settings from "./../../../assets/img/svg/settings.svg";
-import add from "./../../../assets/img/svg/add.svg";
 import { LogOut } from "./LogOut/LogOut";
 import { NavLinkForm } from "./NavLinkForm/NavLinkForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import noAvatar from "./../../../assets/img/avatar.png";
+import {
+  faNewspaper,
+  faStar,
+  faUser,
+  faSquarePlus,
+} from "@fortawesome/free-regular-svg-icons";
 
-export const SideBar = ({ setIsFormOpen, avatar, userName }) => {
+export const SideBar = ({ setIsFormOpen, userStateData }) => {
   const openForm = () => setIsFormOpen(true);
+  const localName = localStorage.getItem("localUserName");
   return (
-    <div>
-      <aside className="side_bar">
-        <div className="user">
-          <img src={avatar} className="avatar" alt="avatar" />
-          <h1>{userName}</h1>
-        </div>
-        <nav className="nav">
-          <NavLinkForm to={links.link1} src={blog} />
-          <NavLinkForm to={links.link2} src={star} />
-          <NavLinkForm to={links.link3} src={settings} />
-          <a href="#" className="link" onClick={openForm}>
-            <img className="link__icons" src={add} alt="пост" />
-            Добавить пост
-          </a>
-          <LogOut />
-        </nav>
-      </aside>
-    </div>
+    <aside className="sidebar__main">
+      <div className="sidebar__user">
+        <img
+          src={userStateData.avatar || noAvatar}
+          className="sidebar__avatar"
+          alt="avatar"
+        />
+        <h1>{localName}</h1>
+        <h2>{userStateData.email}</h2>
+      </div>
+      <nav className="sidebar__nav">
+        <NavLinkForm link={links.link1} icon={faNewspaper} />
+        <NavLinkForm link={links.link2} icon={faStar} />
+        <NavLinkForm link={links.link3} icon={faUser} />
+        <button className="sidebar__link" onClick={openForm}>
+          <FontAwesomeIcon icon={faSquarePlus} className="sidebar__icons" />
+          Добавить пост
+        </button>
+        <LogOut />
+      </nav>
+    </aside>
   );
 };

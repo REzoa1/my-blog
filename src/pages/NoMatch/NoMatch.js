@@ -11,13 +11,17 @@ export const NoMatch = () => {
     history.goBack();
   };
   return (
-    <form className="nomatch__form" onSubmit={handleSubmit}>
-      <div className="nomatch__div">
-        <h1>Error 404</h1>
-        <h2> Cтраница <b>{pathname}</b> не найдена </h2>
-        <div>
-          <button className="nomatch__button"  type="submit" onClick={handleSubmit}>Назад</button>
-        </div>
+    <form className="page_404" onSubmit={handleSubmit}>
+      <div className="four_zero_four_bg">
+        <h3>404</h3>
+      </div>
+      <div className="contant_box_404">
+        <h3>
+          Cтраница <b>{pathname.slice(1)}</b> не найдена
+        </h3>
+        <button className="link_404" href="" type="submit">
+          Назад
+        </button>
       </div>
     </form>
   );

@@ -3,6 +3,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { deletePost } from "../store/slices/posts";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "./../firebase";
+import { USER_URL } from "./constants";
 
 export const deleteConfirmation = (
   postId,
@@ -27,19 +28,12 @@ export const deleteConfirmation = (
   });
 };
 
-export const uploadImage = (
-  file,
-  imageValue,
-  setImageValue,
-  setIsLoading,
-  isAccount = false
-) => {
+export const uploadImage = (file, setImageValue, setIsLoading) => {
   if (!file) return;
-  const fileSize = file.size / 1024 / 1024;
-  if (
+  const fileValidate =
     ["image/png", "image/jpg", "image/jpeg"].includes(file.type) &&
-    fileSize < 3
-  ) {
+    file.size / 1024 / 1024 < 3;
+  if (fileValidate) {
     const sotrageRef = ref(storage, `files/${file.name}`);
     const uploadTask = uploadBytesResumable(sotrageRef, file);
     uploadTask.on(
@@ -47,39 +41,30 @@ export const uploadImage = (
       () => setIsLoading(true),
       (error) => console.log(error),
       () => {
-        // setIsLoading(true);
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          if (isAccount) {
-            setImageValue({ avatar: downloadURL });
-            localStorage.setItem("avatar", downloadURL);
-            setIsLoading(false);
-          } else {
-            setImageValue(downloadURL);
-            setIsLoading(false);
-          }
+          setImageValue(downloadURL);
+          setIsLoading(false);
         });
       }
     );
-  } else
+  } else {
     message.error(
       "Ошибка при загрузке изображения. Выберите другой формат или размер файла."
     );
-
-  // return imageValue;
+  }
 };
-// const uploadFiles = (file) => {
-//   if (!file) return;
-//   const sotrageRef = ref(storage, `files/${file.name}`);
-//   const uploadTask = uploadBytesResumable(sotrageRef, file);
 
-//   uploadTask.on(
-//     "state_changed",
-//     () => setIsLoading(true),
-//     (error) => console.log(error),
-//     () => {
-//       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-//         console.log("File available at", downloadURL);
-//       });
-//     }
-//   );
-// };
+export const editUserData = async (d) => {
+  const response = await fetch(USER_URL + "1", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(d),
+  });
+  if (response.ok) {
+    return await response.json();
+  } else {
+    return new Error("Ошибка при редактировании поста");
+  }
+};
