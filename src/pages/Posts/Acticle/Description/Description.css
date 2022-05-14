@@ -3,23 +3,23 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: crimson;
+  color: #4c6fff;
   font-size: 16px;
   font-weight: 600;
   text-decoration: underline;
-  padding: 0 0 0 5px;
   width: auto;
   text-decoration: none;
 }
 .button_more:hover {
-  color: crimson;
+  color: #4c6fff;
 }
-/* .button_more:visited {
-  color: #551a8b;
-} */
 .description__title {
-  /* text-align: center; */
-  /* width: 80%; */
-  
+  color: #788d9b;
+  font-weight: 500;
   padding-left: 5px;
+}
+
+.button_arrow {
+  margin-left: 5px;
+  font-size: 12px;
 }

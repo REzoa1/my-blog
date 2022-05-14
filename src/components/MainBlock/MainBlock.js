@@ -5,23 +5,20 @@ import { Posts } from "./../../pages/Posts/Posts";
 import { Redirect, Route } from "react-router-dom";
 import { useState } from "react";
 import { SideBar } from "./../../pages/Posts/SideBar/Sidebar";
-import { Form } from "./../../pages/Posts/Form/Form";
+import { AddForm } from "../../pages/Posts/AddForm/AddForm";
 import { PostPage } from "../../pages/PostPage/PostPage";
 import { Account } from "../../pages/Account/Account";
 import { useAccountState } from "../../utils/hooks";
+import { USER_URL } from "../../utils/constants";
 
 export const MainBlock = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const { userState, setUserState } = useAccountState();
+  const { userState, setUserState } = useAccountState(USER_URL);
   return (
     <>
-      <SideBar
-        setIsFormOpen={setIsFormOpen}
-        avatar={userState.avatar}
-        userName={userState.userName}
-      />
-      <main>
-        {isFormOpen && <Form setIsFormOpen={setIsFormOpen} />}
+      <SideBar setIsFormOpen={setIsFormOpen} userStateData={userState.data} />
+      <main className="main__container">
+        {isFormOpen && <AddForm setIsFormOpen={setIsFormOpen} />}
         <Header />
         <Route exact path="/blog">
           <Posts title="Посты" />

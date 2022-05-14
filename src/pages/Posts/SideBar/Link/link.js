@@ -1,3 +1,4 @@
+
 export const links = {
   link1: {
     name: "Посты",

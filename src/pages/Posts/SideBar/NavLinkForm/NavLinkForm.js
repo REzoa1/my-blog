@@ -1,11 +1,14 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-export const NavLinkForm = ({ to, src }) => {
+export const NavLinkForm = ({ link, icon }) => {
   return (
-    <NavLink exact activeClassName="active" className="link" to={to.path}>
-      <img className="link__icons" src={src} alt={to.name} />
-      {to.name}
+    <NavLink exact activeClassName="active" className="sidebar__link" to={link.path}>
+      <FontAwesomeIcon icon={icon} className="sidebar__icons" />
+      {link.name}
+      <FontAwesomeIcon icon={faCircle} className="sidebar__dot" />
     </NavLink>
   );
 };

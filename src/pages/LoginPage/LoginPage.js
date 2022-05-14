@@ -19,15 +19,13 @@ export const LoginPage = () => {
     setPasswordShown(!passwordShown);
   };
   const loginProps = useInput(
-    localStorage.getItem("LoginValue") || "",
+    localStorage.getItem("localUserName") || "",
     true,
     "login"
   );
   const passwordProps = useInput("", true, "password");
-  
-  // const { isWrong } = loginProps && passwordProps;
-  const { isWrong: isWrongLogin } = loginProps;
-  const { isWrong: isWrongPassword } = passwordProps;
+  const { isWrong: isLoginWrong } = loginProps;
+  const { isWrong: isPasswordWrong } = passwordProps;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,18 +36,18 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="login_main">
-      <form onSubmit={handleSubmit} className="login_form">
-        <h1 className="login_content login_text">Вход</h1>
+    <div className="login__main">
+      <form onSubmit={handleSubmit} className="login__form">
+        <h1 className="login__title">Вход</h1>
         <FormControl
-          className="input_form login_input"
+          className="input__form"
           placeholder="Логин"
           inputProps={loginProps}
           icon={faUser}
           maxLength={8}
         />
         <FormControl
-          className="input_form"
+          className="input__form"
           type={passwordShown ? "text" : "password"}
           placeholder="Пароль"
           inputProps={passwordProps}
@@ -58,8 +56,8 @@ export const LoginPage = () => {
           onClick={togglePassword}
         />
         <button
-          disabled={isWrongLogin || isWrongPassword ? true : false}
-          className="button-form"
+          disabled={isLoginWrong || isPasswordWrong ? true : false}
+          className="login__button"
           type="submit"
         >
           Войти

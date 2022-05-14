@@ -8,7 +8,6 @@ import {
   editPost,
   fetchPosts,
   selectPostsData,
-  setPostsList,
 } from "../../store/slices/posts";
 import { deleteConfirmation } from "../../utils/helpers";
 import Search from "antd/lib/transfer/search";
@@ -16,7 +15,7 @@ import Search from "antd/lib/transfer/search";
 export const Posts = ({ title, isFavourite = false }) => {
   useDocumentTitle(title);
 
-  const { postsList, isLoading, error } = useSelector(selectPostsData);
+  const { postsList, isLoading } = useSelector(selectPostsData);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPosts());
@@ -29,12 +28,13 @@ export const Posts = ({ title, isFavourite = false }) => {
 
   const posts = isFilter ? filteredPosts : isFavourite ? likedPosts : postsList;
 
-  const handleLikePost = (post, index) => {
+  const handleLikePost = (index) => {
     const updatedPosts = [...posts];
     updatedPosts[index] = {
       ...updatedPosts[index],
       liked: !updatedPosts[index].liked,
     };
+    setFilteredPosts(updatedPosts);
     dispatch(editPost(updatedPosts[index]));
   };
 
@@ -52,29 +52,23 @@ export const Posts = ({ title, isFavourite = false }) => {
     setSelectedPost(blogPost);
   };
 
-  const [inputValue, setInputValue] = useState("");
   const filterValue = (e) => {
-    setIsFilter(true);
-
-    setInputValue(e.target.value);
     if (e.target.value === "") setIsFilter(false);
-    // return dispatch(setPostsList(postsList));
-    else
+    else {
+      setIsFilter(true);
       setFilteredPosts(
-        (isFavourite ? likedPosts : postsList).filter(
-          (item) =>
-            item.name.toLowerCase().includes(inputValue.toLowerCase()) ||
-            item.description.toLowerCase().includes(inputValue.toLowerCase())
+        (isFavourite ? likedPosts : postsList).filter((item) =>
+          item.name.toLowerCase().includes(e.target.value.toLowerCase())
         )
       );
+    }
   };
-  // isFilter ? filteredPosts : isFavourite ? likedPosts : postsList
   const postsUI = posts.map((post, pos) => {
     return (
       <Article
         key={post.id}
         {...post}
-        like={() => handleLikePost(post, pos)}
+        like={() => handleLikePost(pos)}
         deletePost={() => handleDeletePost(post.id)}
         openEditForm={() => openEditForm(post.id)}
         editFormShow={() => editFormShow(post)}
@@ -89,13 +83,17 @@ export const Posts = ({ title, isFavourite = false }) => {
   return (
     <div className="container">
       <Preloader isLoading={isLoading}>
-        <div className="posts__title">
-          {title}
-          <div className="posts__search">
+        <div className="posts__header">
+          <h1 className="posts__title">{title}</h1>
+          <div>
             <Search placeholder="Найти" onChange={filterValue} />
           </div>
         </div>
-        <div className="posts">{postsUI}</div>
+        {postsUI.length ? (
+          <div className="posts">{postsUI}</div>
+        ) : (
+          <div className="posts__empty">...постов нет</div>
+        )}
       </Preloader>
     </div>
   );

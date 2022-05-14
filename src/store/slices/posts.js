@@ -11,7 +11,6 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   const response = await fetch(POSTS_URL);
   if (response.ok) {
     return await response.json();
-    
   } else {
     return new Error("Ошибка при получении постов");
   }
@@ -118,6 +117,5 @@ const postsSlice = createSlice({
 
 export const postsReducer = postsSlice.reducer;
 export const { setPostsList } = postsSlice.actions;
-// export const { setIsLoading } = postsSlice.actions;
 
 export const selectPostsData = (state) => state.posts;

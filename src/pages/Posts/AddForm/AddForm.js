@@ -1,5 +1,5 @@
-import "./Form.css";
-import { useState, useCallback } from "react";
+import "./AddForm.css";
+import { useState, useCallback, useRef } from "react";
 import { useCloseForm } from "../../../utils/hooks";
 import { createNewPost, selectPostsData } from "../../../store/slices/posts";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,11 +15,11 @@ import { Preloader } from "../Preloader/Preloader";
 import { Button } from "antd";
 import Upload from "antd/lib/upload/Upload";
 
-export const Form = ({ setIsFormOpen }) => {
+export const AddForm = ({ setIsFormOpen }) => {
   const { postsList } = useSelector(selectPostsData);
   const closeForm = useCallback(() => setIsFormOpen(false), [setIsFormOpen]);
-  useCloseForm(closeForm);
-
+  const wrapperRef = useRef();
+  useCloseForm(closeForm, wrapperRef);
   const [titleValue, setTitleValue] = useState("");
   const handleTitleValue = (e) => {
     setTitleValue(e.target.value);
@@ -36,7 +36,7 @@ export const Form = ({ setIsFormOpen }) => {
   const [isLoading, setIsLoading] = useState(false);
   const handleUploadImage = (e) => {
     const file = e.fileList[0].originFileObj;
-    uploadImage(file, imageValue, setImageValue, setIsLoading);
+    uploadImage(file, setImageValue, setIsLoading);
   };
 
   const handleCreatePost = (e) => {
@@ -53,17 +53,18 @@ export const Form = ({ setIsFormOpen }) => {
   };
   return (
     <div className="form_main">
-      <form className="form_container" onSubmit={handleCreatePost}>
+      <form
+        className="form_container"
+        onSubmit={handleCreatePost}
+        ref={wrapperRef}
+      >
         <button className="form_button" onClick={closeForm}>
           <CloseOutlined className="form_icon" />
         </button>
         <Preloader isLoading={isLoading}>
           <Upload
-            beforeUpload={() => {
-              return false;
-            }}
+            beforeUpload={() => false}
             onChange={handleUploadImage}
-            // listType="picture"
             accept=".png,.jpg,.jpeg"
             maxCount={1}
           >
