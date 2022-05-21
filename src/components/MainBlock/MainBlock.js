@@ -27,7 +27,7 @@ export const MainBlock = () => {
           <PostPage />
         </Route>
         <Route exact path="/favourite">
-          <Posts title="Избранное" isFavourite={true} />
+          <Posts title="Избранное" isFavourite />
         </Route>
         <Route exact path="/account">
           <Account userState={userState} setUserState={setUserState} />
