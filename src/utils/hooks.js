@@ -47,7 +47,6 @@ export const useInput = (initialValue, required, type) => {
 export const useCloseForm = (callback, ref) => {
   useEffect(() => {
     const handleClose = (e) => {
-      console.log(e.key);
       if (e.key === "Escape") {
         callback();
       }
