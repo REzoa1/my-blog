@@ -3,7 +3,6 @@ import { links } from "./Link/link";
 import { LogOut } from "./LogOut/LogOut";
 import { NavLinkForm } from "./NavLinkForm/NavLinkForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import noAvatar from "./../../../assets/img/avatar.png";
 import {
   faNewspaper,
   faStar,
@@ -18,7 +17,7 @@ export const SideBar = ({ setIsFormOpen, userStateData }) => {
     <aside className="sidebar__main">
       <div className="sidebar__user">
         <img
-          src={userStateData.avatar || noAvatar}
+          src={userStateData.avatar}
           className="sidebar__avatar"
           alt="avatar"
         />

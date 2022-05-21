@@ -9,14 +9,16 @@ import { editUserData } from "../../utils/helpers";
 import NO_AVATAR from "./../../assets/img/avatar.png";
 import { Item } from "./Item/Item";
 import { Field } from "./Field/Field";
+import { useDocumentTitle } from "../../utils/hooks";
 
 export const Account = ({ userState, setUserState }) => {
+  useDocumentTitle("Аккаунт");
   const [isLoading, setIsLoading] = useState(userState.isLoading);
 
   const [userData, setUserData] = useState(userState.data);
   const { age, avatar, username, email } = userData;
   const localUserName = localStorage.getItem("localUserName");
-  const [imageValue, setImageValue] = useState(avatar || NO_AVATAR);
+  const [imageValue, setImageValue] = useState(avatar);
 
   const [isEdit, setIsEdit] = useState(false);
   const handleUploadImage = (e) => {
@@ -59,7 +61,7 @@ export const Account = ({ userState, setUserState }) => {
       <Preloader isLoading={isLoading}>
         <form className="account__form" onSubmit={formHandler}>
           <div className="account__container">
-            <img className="account__avatar" src={imageValue} alt="Avatar" />
+            <img className="account__avatar" src={imageValue || userState.data.avatar} alt="Avatar" />
             <h1 className="account__name">
               {isEdit ? username : localUserName}
             </h1>
