@@ -47,18 +47,21 @@ export const useInput = (initialValue, required, type) => {
 export const useCloseForm = (callback, ref) => {
   useEffect(() => {
     const handleClose = (e) => {
-      if (
-        e.key === "Escape" &&
-        (ref.current && !ref.current.contains(e.target))
-      ) {
+      console.log(e.key);
+      if (e.key === "Escape") {
         callback();
       }
     };
-    window.addEventListener("mousedown", handleClose);
+    const handleRef = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        callback();
+      }
+    };
+    window.addEventListener("mousedown", handleRef);
     window.addEventListener("keydown", handleClose);
     return () => {
+      window.removeEventListener("mousedown", handleRef);
       window.removeEventListener("keydown", handleClose);
-      window.removeEventListener("mousedown", handleClose);
     };
   }, [callback, ref]);
 };
