@@ -54,6 +54,7 @@ export const Account = ({ userState, setUserState }) => {
 
   const cancelChanges = () => {
     setUserData(userState.data);
+    setImageValue(userState.data.avatar);
     closeForm();
   };
   return (
@@ -61,7 +62,11 @@ export const Account = ({ userState, setUserState }) => {
       <Preloader isLoading={isLoading}>
         <form className="account__form" onSubmit={formHandler}>
           <div className="account__container">
-            <img className="account__avatar" src={imageValue || userState.data.avatar} alt="Avatar" />
+            <img
+              className="account__avatar"
+              src={imageValue || userState.data.avatar}
+              alt="Avatar"
+            />
             <h1 className="account__name">
               {isEdit ? username : localUserName}
             </h1>
