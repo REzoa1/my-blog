@@ -48,7 +48,7 @@ export const useCloseForm = (callback, ref) => {
   useEffect(() => {
     const handleClose = (e) => {
       if (
-        e.key === "Escape" ||
+        e.key === "Escape" &&
         (ref.current && !ref.current.contains(e.target))
       ) {
         callback();
