@@ -22,3 +22,7 @@ Ant Design, Redux Toolkit, React Router, Font Awesome, Firebase, ES Lint
 &ensp;&ensp;4.3. Добавление поста в избранное;<br />
 &ensp;&ensp;4.4. Страница с настройками аккаунта;<br />
 &ensp;&ensp;4.5. Страница для авторизации.
+
+## Netlify:
+Ссылка на задеплоенную версию
+https://confident-jepsen-99b2ea.netlify.app/
